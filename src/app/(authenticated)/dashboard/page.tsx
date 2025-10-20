@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useUser } from "@/firebase";
 import { ArrowRight, Gift, HeartPulse, User as UserIcon } from "lucide-react";
 import Link from "next/link";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 const summaryCards = [
     {
@@ -28,26 +30,42 @@ const summaryCards = [
     },
     {
         title: "Próxima Renovación",
-        description: "Julio 30, 2024",
+        description: "Julio 30, 2025",
         icon: Gift,
         cta: {
             text: "Actualizar Pago",
             href: "/dashboard/billing"
         }
     }
-]
+];
+
+const benefitsUsageData = [
+  { month: 'Ene', count: 2 },
+  { month: 'Feb', count: 1 },
+  { month: 'Mar', count: 3 },
+  { month: 'Abr', count: 5 },
+  { month: 'May', count: 3 },
+  { month: 'Jun', count: 4 },
+];
+
+const chartConfig = {
+  count: {
+    label: "Usos",
+    color: "hsl(var(--primary))",
+  },
+};
 
 export default function DashboardPage() {
     const { user } = useUser();
 
     return (
-        <div className="p-4 sm:p-6 md:p-8">
+        <div className="p-4 sm:p-6 md:p-8 space-y-8">
             <div className="mb-8">
                 <h1 className="text-3xl font-bold font-headline">Hola, {user?.displayName?.split(' ')[0] || 'Usuario'}</h1>
                 <p className="text-muted-foreground">Bienvenido a tu panel de control de Movilo.club.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {summaryCards.map((item) => (
                     <Card key={item.title}>
                         <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -64,27 +82,51 @@ export default function DashboardPage() {
                 ))}
             </div>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Acceso Rápido</CardTitle>
-                    <CardDescription>Encuentra lo que necesitas con un solo click.</CardDescription>
-                </CardHeader>
-                <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Button variant="outline" asChild>
-                        <Link href="/dashboard/search">Buscar Proveedor</Link>
-                    </Button>
-                    <Button variant="outline" asChild>
-                        <Link href="/dashboard/digital-card">Ver Carné Digital</Link>
-                    </Button>
-                     <Button variant="outline" asChild>
-                        <Link href="/dashboard/appointments">Agendar Cita</Link>
-                    </Button>
-                    <Button variant="accent" className="bg-accent text-accent-foreground" asChild>
-                        <Link href="/dashboard/rebuy">Renovar Afiliación</Link>
-                    </Button>
-                </CardContent>
-            </Card>
+             <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <Card className="lg:col-span-3">
+                    <CardHeader>
+                        <CardTitle>Historial de Beneficios Usados</CardTitle>
+                        <CardDescription>Tu ahorro mes a mes con Movilo.club.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <ChartContainer config={chartConfig} className="h-[250px] w-full">
+                           <ResponsiveContainer>
+                                <BarChart data={benefitsUsageData} accessibilityLayer>
+                                    <CartesianGrid vertical={false} />
+                                    <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
+                                    <YAxis />
+                                    <Tooltip 
+                                        cursor={false} 
+                                        content={<ChartTooltipContent hideLabel />} 
+                                    />
+                                    <Bar dataKey="count" fill="var(--color-count)" radius={8} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </ChartContainer>
+                    </CardContent>
+                </Card>
 
+                 <Card className="lg:col-span-2">
+                    <CardHeader>
+                        <CardTitle>Acceso Rápido</CardTitle>
+                        <CardDescription>Encuentra lo que necesitas con un solo click.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid grid-cols-2 gap-4">
+                        <Button variant="outline" asChild>
+                            <Link href="/dashboard/search">Buscar Proveedor</Link>
+                        </Button>
+                        <Button variant="outline" asChild>
+                            <Link href="/dashboard/digital-card">Ver Carné Digital</Link>
+                        </Button>
+                         <Button variant="outline" asChild>
+                            <Link href="/dashboard/appointments">Agendar Cita</Link>
+                        </Button>
+                        <Button variant="accent" className="bg-accent text-accent-foreground" asChild>
+                            <Link href="/dashboard/rebuy">Renovar Afiliación</Link>
+                        </Button>
+                    </CardContent>
+                </Card>
+             </div>
         </div>
     )
 }
