@@ -25,7 +25,7 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="bg-card border-t w-full">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-4 md:px-6 py-16">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-4 md:px-6 py-16">
         <div className="space-y-4 lg:col-span-1">
           <Logo />
           <p className="text-muted-foreground">Tu salud, a un mejor precio. Accede a una red de beneficios médicos en Cali.</p>
@@ -66,6 +66,22 @@ export default function Footer() {
                 <Button type="submit" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">Enviar Mensaje</Button>
             </form>
         </div>
+
+        <div className="space-y-4">
+            <h4 className="font-semibold">Para Proveedores</h4>
+            <ul className="space-y-2">
+                <li>
+                    <Link href="/provider-signup" className="text-sm text-muted-foreground hover:text-primary">
+                        Inscríbete como Proveedor
+                    </Link>
+                </li>
+                 <li>
+                    <Link href="/provider-login" className="text-sm text-muted-foreground hover:text-primary">
+                        Portal de Proveedores
+                    </Link>
+                </li>
+            </ul>
+        </div>
       </div>
       <div className="bg-muted/50 py-4">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground px-4 md:px-6">
@@ -79,5 +95,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-    
