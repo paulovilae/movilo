@@ -27,6 +27,8 @@ import {
     Settings,
     LogOut,
     History,
+    Briefcase,
+    Shield,
 } from 'lucide-react';
 
 const clientLinks = [
@@ -86,6 +88,22 @@ export function DashboardSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="/provider-dashboard">
+                        <Briefcase />
+                        <span>Portal Proveedor</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="/admin">
+                        <Shield />
+                        <span>Panel Admin</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarGroup>
         </SidebarMenu>
       </SidebarContent>

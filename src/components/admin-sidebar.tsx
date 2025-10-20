@@ -11,6 +11,8 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarSeparator,
+  SidebarGroupLabel,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons/logo';
 import { Button } from './ui/button';
@@ -21,6 +23,8 @@ import {
     Stethoscope,
     LogOut,
     Shield,
+    Briefcase,
+    UserCog,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
@@ -52,16 +56,37 @@ export function AdminSidebar() {
       <SidebarContent>
         <SidebarMenu>
           <SidebarGroup>
+            <SidebarGroupLabel>Admin</SidebarGroupLabel>
             {adminLinks.map(link => (
               <SidebarMenuItem key={link.href}>
-                <SidebarMenuButton asChild isActive={pathname === `/app/(admin)${link.href}`}>
-                  <Link href={`/admin${link.href.substring(1)}`}>
+                <SidebarMenuButton asChild isActive={pathname === link.href}>
+                  <Link href={link.href}>
                     <link.icon />
                     <span>{link.label}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
+          </SidebarGroup>
+          <SidebarSeparator />
+          <SidebarGroup>
+            <SidebarGroupLabel>Cambiar a</SidebarGroupLabel>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="/dashboard">
+                        <UserCog />
+                        <span>Portal Socio</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="/provider-dashboard">
+                        <Briefcase />
+                        <span>Portal Proveedor</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarGroup>
         </SidebarMenu>
       </SidebarContent>
