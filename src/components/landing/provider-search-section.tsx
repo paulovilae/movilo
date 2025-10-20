@@ -1,4 +1,3 @@
-
 'use client'
 import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
@@ -71,7 +70,6 @@ export function ProviderSearchSection() {
         const caliLocation = "Cali,Valle+del+Cauca";
 
         if (!key) {
-            console.error("Google Maps API Key is missing.");
             return `${base}?key=&q=${caliLocation}&zoom=12`;
         }
         
