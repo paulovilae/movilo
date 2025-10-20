@@ -1,7 +1,7 @@
 
 'use client'
-import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -19,11 +19,34 @@ import { plans } from '@/lib/data';
 import { ArrowLeft } from 'lucide-react';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import { useUser } from '@/firebase';
 
 function BuyPageContent() {
+  const router = useRouter();
+  const { user, isUserLoading } = useUser();
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Plan Individual';
   const selectedPlan = plans.find(p => p.name === planName) || plans[0];
+
+  useEffect(() => {
+    // If auth state is not loading and there's no user, redirect to login
+    if (!isUserLoading && !user) {
+      router.push('/login?redirect=/buy&plan=' + encodeURIComponent(planName));
+    }
+  }, [user, isUserLoading, router, planName]);
+
+  // Show a loading state while checking for user authentication
+  if (isUserLoading || !user) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 flex items-center justify-center">
+            <div>Loading...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
      <div className="flex flex-col min-h-screen">
@@ -44,7 +67,7 @@ function BuyPageContent() {
                     <CardHeader>
                     <CardTitle className="text-2xl">Finalizar Compra</CardTitle>
                     <CardDescription>
-                        Estás a punto de adquirir el <span className="font-bold text-primary">{selectedPlan.name}</span>.
+                        Estás a punto de adquirir el <span className="font-bold text-primary">{selectedPlan.name}</span> para <span className="font-bold text-primary">{user.email}</span>.
                     </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
@@ -62,7 +85,7 @@ function BuyPageContent() {
                             <h3 className="font-semibold">Información de Pago</h3>
                             <div className="space-y-2">
                                 <Label htmlFor="name">Nombre en la tarjeta</Label>
-                                <Input id="name" placeholder="Tu nombre completo" required />
+                                <Input id="name" placeholder="Tu nombre completo" required defaultValue={user.displayName || ''} />
                             </div>
                              <div className="space-y-2">
                                 <Label htmlFor="card-number">Número de tarjeta</Label>

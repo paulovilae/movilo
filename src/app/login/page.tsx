@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -15,8 +16,8 @@ import Link from "next/link";
 import { Logo } from "@/components/icons/logo";
 import { initiateGoogleSignIn } from "@/firebase/auth";
 import { useAuth, useUser } from "@/firebase";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -28,17 +29,27 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
-
-export default function LoginPage() {
+function LoginPageContent() {
   const auth = useAuth();
   const { user, isUserLoading } = useUser();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      router.push('/dashboard');
+      const redirectUrl = searchParams.get('redirect');
+      const plan = searchParams.get('plan');
+      if (redirectUrl) {
+        let url = redirectUrl;
+        if (plan) {
+            url += `?plan=${encodeURIComponent(plan)}`;
+        }
+        router.push(url);
+      } else {
+        router.push('/dashboard');
+      }
     }
-  }, [user, isUserLoading, router]);
+  }, [user, isUserLoading, router, searchParams]);
   
   const handleGoogleSignIn = () => {
     initiateGoogleSignIn(auth);
@@ -107,4 +118,12 @@ export default function LoginPage() {
         </div>
     </div>
   )
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <LoginPageContent />
+        </Suspense>
+    );
 }
