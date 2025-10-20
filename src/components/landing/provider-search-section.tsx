@@ -52,10 +52,15 @@ const ProviderList = ({ providers }: { providers: Provider[] }) => {
 
 export function ProviderSearchSection() {
     const [activeTab, setActiveTab] = useState<ProviderType>('odontologo');
+    const [searchTerm, setSearchTerm] = useState('');
 
     const filteredProviders = useMemo(() => {
-        return providers.filter(p => p.type === activeTab);
-    }, [activeTab]);
+        return providers.filter(p => p.type === activeTab &&
+            (p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+             p.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             p.address.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+    }, [activeTab, searchTerm]);
 
     const mapUrl = useMemo(() => {
         const baseMapUrl = "https://www.google.com/maps/embed/v1/view";
@@ -63,10 +68,18 @@ export function ProviderSearchSection() {
             ? `${filteredProviders[0].location.lat},${filteredProviders[0].location.lng}` 
             : "3.420558,-76.5222";
         
-        const markers = filteredProviders.map(p => `&markers=pin-l-blue%7C${p.location.lat},${p.location.lng}`);
-        
-        return `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12${markers.join('')}`;
-    }, [filteredProviders]);
+        // The 'view' mode for Google Maps Embed API doesn't support markers. 
+        // We'll use a search query instead to show relevant results.
+        // A better approach would be to use the Maps JavaScript API for full control.
+        const searchString = activeTab === 'farmacia' ? 'farmacias en Cali' : `servicios de ${activeTab} en Cali`;
+
+        return `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12&q=${encodeURIComponent(searchString)}`;
+    }, [filteredProviders, activeTab]);
+
+    const handleSearch = () => {
+        // The filtering is already happening in useMemo, but we can have a button
+        // for a more explicit user action if needed. For now, it filters as you type.
+    };
 
     return (
         <section id="providers" className="w-full py-16 md:py-24 bg-background">
@@ -96,15 +109,20 @@ export function ProviderSearchSection() {
                                 </TabsList>
                                 {providerTypes.map(type => (
                                      <TabsContent key={type.value} value={type.value} className="p-1 max-h-80 overflow-y-auto">
-                                        <ProviderList providers={providers.filter(p => p.type === type.value)} />
+                                        <ProviderList providers={filteredProviders} />
                                      </TabsContent>
                                 ))}
                             </Tabs>
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                                <Input placeholder="Buscar por zona o especialidad..." className="pl-10" />
+                                <Input 
+                                    placeholder="Buscar por nombre, zona o especialidad..." 
+                                    className="pl-10"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
                             </div>
-                             <Button size="lg" className="w-full">
+                             <Button size="lg" className="w-full" onClick={handleSearch}>
                                 <Search className="mr-2 h-5 w-5" />
                                 Buscar
                             </Button>
