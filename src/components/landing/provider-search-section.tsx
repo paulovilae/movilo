@@ -61,14 +61,7 @@ export function ProviderSearchSection() {
         );
     }, [activeTab, searchTerm]);
 
-    const mapUrl = useMemo(() => {
-        const baseMapUrl = "https://www.google.com/maps/embed/v1/view";
-        const center = filteredProviders.length > 0 
-            ? `${filteredProviders[0].location.lat},${filteredProviders[0].location.lng}` 
-            : "3.420558,-76.5222";
-        
-        return `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12`;
-    }, [filteredProviders]);
+    const mapUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&q=Cali,Valle+del+Cauca&zoom=12`;
 
     const handleSearch = () => {
         // The filtering is already happening in useMemo, but we can have a button
