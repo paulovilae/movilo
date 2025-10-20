@@ -1,4 +1,6 @@
 
+'use client'
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -26,7 +28,17 @@ const providerTypes = [
 
 export function ProviderSearchSection() {
     const odontologos = providers.filter(p => p.type === 'odontologo');
+    
+    // Construct the map URL with markers for each provider
+    const baseMapUrl = "https://www.google.com/maps/embed/v1/view";
+    const center = odontologos.length > 0 ? `${odontologos[0].location.lat},${odontologos[0].location.lng}` : "3.420558,-76.5222";
+    
+    const markers = odontologos.map(p => `&markers=pin-l-blue%7C${p.location.lat},${p.location.lng}`);
 
+    // Note: The Maps Embed API key is restricted and for demo purposes.
+    // You would replace this with your own API key for a production environment.
+    const mapUrl = `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12${markers.join('')}`;
+    
     return (
         <section id="providers" className="w-full py-16 md:py-24 bg-background">
             <div className="container mx-auto px-4 md:px-6">
@@ -90,13 +102,13 @@ export function ProviderSearchSection() {
 
                         <div className="relative rounded-lg overflow-hidden min-h-[300px] lg:min-h-full">
                              <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254921.9559388363!2d-76.64150428131034!3d3.42055869389336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6f0cfd1b103%3A0x327503796b48a86a!2sCali%2C%20Valle%20del%20Cauca%2C%20Colombia!5e0!3m2!1sen!2sus!4v162283334 Cali, Colombia" 
+                                src={mapUrl}
                                 width="100%" 
                                 height="100%" 
                                 style={{border:0}} 
                                 allowFullScreen={false} 
                                 loading="lazy"
-                                title="Mapa de Cali"
+                                title="Mapa de proveedores de Movilo.club"
                                 className="absolute inset-0 w-full h-full"
                             ></iframe>
                         </div>

@@ -94,6 +94,10 @@ export type Provider = {
   address: string;
   phone: string;
   type: 'odontologo' | 'clinica' | 'laboratorio' | 'especialista' | 'farmacia';
+  location: {
+    lat: number;
+    lng: number;
+  };
 };
 
 export const providers: Provider[] = [
@@ -103,6 +107,7 @@ export const providers: Provider[] = [
     address: "Cl. 9 #48-51, Cali, Valle del Cauca",
     phone: "(602) 555-1234",
     type: "odontologo",
+    location: { lat: 3.428, lng: -76.531 }
   },
   {
     name: "Clínica Dental Sonríe",
@@ -110,6 +115,7 @@ export const providers: Provider[] = [
     address: "Cra. 100 #5-169, Cali, Valle del Cauca",
     phone: "(602) 555-5678",
     type: "odontologo",
+    location: { lat: 3.373, lng: -76.534 }
   },
   {
     name: "Centro Odontológico El Cedro",
@@ -117,5 +123,6 @@ export const providers: Provider[] = [
     address: "Av. 6 Nte. #28N-10, Cali, Valle del Cauca",
     phone: "(602) 555-8765",
     type: "odontologo",
+    location: { lat: 3.473, lng: -76.533 }
   },
 ];
