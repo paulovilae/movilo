@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogOut } from 'lucide-react';
+import { Menu, LogOut, Briefcase } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
 import { useUser, useAuth } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -75,6 +75,10 @@ export default function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
                   Configuración
+                </DropdownMenuItem>
+                 <DropdownMenuItem onClick={() => router.push('/provider-dashboard')}>
+                  <Briefcase className="mr-2 h-4 w-4" />
+                  <span>Portal de Proveedor</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut}>
