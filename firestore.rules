@@ -1,0 +1,86 @@
+/**
+ * @file Firestore Security Rules
+ * @version 2
+ *
+ * @description This ruleset enforces a strict user-ownership model for the Movilo.club application.
+ * All data is nested under /users/{userId}, and only the authenticated user can access their own data.
+ *
+ * @data_structure
+ * - /users/{userId}: Stores user profile information. The {userId} must match the authenticated user's UID.
+ *
+ * @key_security_decisions
+ * - User listing is denied to prevent unauthorized access to user data.
+ * - All write operations require authentication.
+ * - Data validation is relaxed in this prototyping phase, focusing on authorization.
+ *
+ * @denormalization_for_authorization
+ * - The User document's 'id' field must match the {userId} in the path. This is enforced on create and update.
+ * This design avoids the need for complex queries or additional reads during authorization.
+ *
+ * @structural_segregation
+ * - All user-specific data is stored under the /users/{userId} path, ensuring clear ownership and access control.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Secure access to user profiles under /users/{userId}.
+     * @path /users/{userId}
+     * @allow (create) User with UID 'user123' can create their profile.
+     *   - Auth: { uid: 'user123' }
+     *   - Request Data: { id: 'user123', email: 'test@example.com', firstName: 'Test', lastName: 'User', createdAt: '2024-01-01T00:00:00Z', updatedAt: '2024-01-01T00:00:00Z' }
+     * @allow (get) User with UID 'user456' can read their profile.
+     *   - Auth: { uid: 'user456' }
+     * @allow (update) User with UID 'user789' can update their profile.
+     *   - Auth: { uid: 'user789' }
+     *   - Existing Data: { id: 'user789', email: 'test@example.com', firstName: 'Test', lastName: 'User', createdAt: '2024-01-01T00:00:00Z', updatedAt: '2024-01-01T00:00:00Z' }
+     *   - Request Data: { id: 'user789', firstName: 'Updated', lastName: 'User' }
+     * @allow (delete) User with UID 'user012' can delete their profile.
+     *   - Auth: { uid: 'user012' }
+     * @deny (create) User with UID 'userABC' cannot create a profile for another user.
+     *   - Auth: { uid: 'userABC' }
+     *   - Request Data: { id: 'userXYZ', email: 'test@example.com', firstName: 'Test', lastName: 'User', createdAt: '2024-01-01T00:00:00Z', updatedAt: '2024-01-01T00:00:00Z' }
+     * @deny (get) User with UID 'userDEF' cannot read another user's profile.
+     *   - Auth: { uid: 'userDEF' }
+     * @deny (update) User with UID 'userGHI' cannot update another user's profile.
+     *   - Auth: { uid: 'userGHI' }
+     *   - Existing Data: { id: 'userXYZ', email: 'test@example.com', firstName: 'Test', lastName: 'User', createdAt: '2024-01-01T00:00:00Z', updatedAt: '2024-01-01T00:00:00Z' }
+     *   - Request Data: { id: 'userXYZ', firstName: 'Updated', lastName: 'User' }
+     * @deny (delete) User with UID 'userJKL' cannot delete another user's profile.
+     *   - Auth: { uid: 'userJKL' }
+     * @principle Enforces document ownership for all operations. Validates relational integrity between path and document data.
+     */
+    match /users/{userId} {
+      // Helper function to check if the user is signed in.
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      // Helper function to check if the user ID matches the authenticated user's UID.
+      function isOwner(userId) {
+        return isSignedIn() && request.auth.uid == userId;
+      }
+
+      // Helper function to check if the user ID matches the authenticated user's UID and the resource exists.
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      // Allow a user to read their own profile.
+      allow get: if isOwner(userId);
+
+      // Allow a user to create their own profile if the user ID matches the authenticated user's UID.
+      allow create: if isOwner(userId) && request.resource.data.id == request.auth.uid;
+
+      // Allow a user to update their own profile if the user ID matches the authenticated user's UID and is not changing the immutable id field
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+
+      // Allow a user to delete their own profile if the user ID matches the authenticated user's UID and the resource exists.
+      allow delete: if isExistingOwner(userId);
+
+      // List operation is not allowed.
+      allow list: if false;
+    }
+  }
+}
