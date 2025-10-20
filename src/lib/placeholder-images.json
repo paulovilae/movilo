@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A bright and positive image of a happy, healthy family.",
+      "imageUrl": "https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGZhbWlseXxlbnwwfHx8fDE3NjA4NTQ3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy family"
+    },
+    {
+      "id": "map-cali",
+      "description": "An illustrative map of the city of Cali.",
+      "imageUrl": "https://images.unsplash.com/photo-1619468129361-605ebea04b44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaXR5JTIwbWFwfGVufDB8fHx8MTc2MDg1OTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    },
+    {
+      "id": "digital-card-bg",
+      "description": "A subtle, professional background for a digital card.",
+      "imageUrl": "https://images.unsplash.com/photo-1679592098614-ae83589aa91a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdCUyMHBhdHRlcm58ZW58MHx8fHwxNzYwODQ2MTU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract pattern"
+    },
+    {
+      "id": "avatar-1",
+      "description": "A placeholder avatar for a user.",
+      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjA4MjUzNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
 }
