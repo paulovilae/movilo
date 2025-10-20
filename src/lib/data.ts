@@ -87,3 +87,35 @@ export const faqs: FaqItem[] = [
       'La principal diferencia es la cantidad de personas que cubre cada plan. El Plan Individual es para una persona, el Plan Pareja para dos y el Plan Familia para hasta cuatro personas del mismo núcleo familiar.',
   },
 ];
+
+export type Provider = {
+  name: string;
+  specialty: string;
+  address: string;
+  phone: string;
+  type: 'odontologo' | 'clinica' | 'laboratorio' | 'especialista' | 'farmacia';
+};
+
+export const providers: Provider[] = [
+  {
+    name: "Sonrisa Perfecta",
+    specialty: "Odontología General y Estética",
+    address: "Cl. 9 #48-51, Cali, Valle del Cauca",
+    phone: "(602) 555-1234",
+    type: "odontologo",
+  },
+  {
+    name: "Clínica Dental Sonríe",
+    specialty: "Ortodoncia y Endodoncia",
+    address: "Cra. 100 #5-169, Cali, Valle del Cauca",
+    phone: "(602) 555-5678",
+    type: "odontologo",
+  },
+  {
+    name: "Centro Odontológico El Cedro",
+    specialty: "Implantología y Periodoncia",
+    address: "Av. 6 Nte. #28N-10, Cali, Valle del Cauca",
+    phone: "(602) 555-8765",
+    type: "odontologo",
+  },
+];

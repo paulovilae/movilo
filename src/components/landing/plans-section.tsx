@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { plans } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 export function PlansSection() {
   return (
@@ -42,7 +43,9 @@ export function PlansSection() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className={cn("w-full", plan.popular ? 'bg-primary hover:bg-primary/90' : 'bg-accent hover:bg-accent/90 text-accent-foreground')} size="lg">{plan.cta}</Button>
+                <Button className={cn("w-full", plan.popular ? 'bg-primary hover:bg-primary/90' : 'bg-accent hover:bg-accent/90 text-accent-foreground')} size="lg" asChild>
+                  <Link href={`/buy?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
+                </Button>
               </CardFooter>
             </Card>
           ))}
