@@ -88,12 +88,14 @@ export const faqs: FaqItem[] = [
   },
 ];
 
+export type ProviderType = 'odontologo' | 'clinica' | 'laboratorio' | 'especialista' | 'farmacia';
+
 export type Provider = {
   name: string;
   specialty: string;
   address: string;
   phone: string;
-  type: 'odontologo' | 'clinica' | 'laboratorio' | 'especialista' | 'farmacia';
+  type: ProviderType;
   location: {
     lat: number;
     lng: number;
@@ -101,6 +103,7 @@ export type Provider = {
 };
 
 export const providers: Provider[] = [
+  // Odontólogos
   {
     name: "Sonrisa Perfecta",
     specialty: "Odontología General y Estética",
@@ -124,5 +127,57 @@ export const providers: Provider[] = [
     phone: "(602) 555-8765",
     type: "odontologo",
     location: { lat: 3.473, lng: -76.533 }
+  },
+  // Clínicas
+  {
+    name: "Clínica de Occidente",
+    specialty: "Servicios Médicos Integrales",
+    address: "Cl. 18 #34-99, Cali, Valle del Cauca",
+    phone: "(602) 485-6000",
+    type: "clinica",
+    location: { lat: 3.441, lng: -76.541 }
+  },
+  {
+    name: "Clínica Imbanaco",
+    specialty: "Centro Médico de Alta Complejidad",
+    address: "Cra. 38 Bis #5B2-04, Cali, Valle del Cauca",
+    phone: "(602) 382-1000",
+    type: "clinica",
+    location: { lat: 3.426, lng: -76.538 }
+  },
+  // Laboratorios
+  {
+    name: "Laboratorio Clínico Angel",
+    specialty: "Análisis Clínicos y Diagnósticos",
+    address: "Av. 3 Nte. #37-65, Cali, Valle del Cauca",
+    phone: "(602) 660-7070",
+    type: "laboratorio",
+    location: { lat: 3.468, lng: -76.530 }
+  },
+  // Especialistas
+  {
+    name: "Dr. Carlos Valdivieso",
+    specialty: "Cardiología",
+    address: "Centro Médico Imbanaco, Consultorio 801",
+    phone: "(602) 385-1000",
+    type: "especialista",
+    location: { lat: 3.4265, lng: -76.5385 }
+  },
+  {
+    name: "Dra. Ana María López",
+    specialty: "Dermatología",
+    address: "Clínica de Occidente, Consultorio 305",
+    phone: "(602) 485-6001",
+    type: "especialista",
+    location: { lat: 3.4415, lng: -76.5415 }
+  },
+  // Farmacias
+  {
+    name: "Drogas La Rebaja",
+    specialty: "Farmacia y Misceláneos",
+    address: "Múltiples ubicaciones en Cali",
+    phone: "01 8000 939 999",
+    type: "farmacia",
+    location: { lat: 3.451, lng: -76.532 }
   },
 ];

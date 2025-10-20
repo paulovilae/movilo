@@ -1,12 +1,12 @@
 
 'use client'
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Search, Hospital, FlaskConical, Stethoscope, Pill } from 'lucide-react';
-import { providers } from '@/lib/data';
+import { providers, Provider, ProviderType } from '@/lib/data';
 
 // A "Tooth" icon is not available in lucide-react, so we create a simple SVG.
 const ToothIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -19,26 +19,55 @@ const ToothIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const providerTypes = [
-    { value: 'clinics', label: 'Clínicas', icon: Hospital },
-    { value: 'labs', label: 'Laboratorios', icon: FlaskConical },
-    { value: 'specialists', label: 'Especialistas', icon: Stethoscope },
-    { value: 'odontologos', label: 'Odontólogos', icon: ToothIcon },
-    { value: 'pharmacies', label: 'Farmacias', icon: Pill },
+    { value: 'clinica', label: 'Clínicas', icon: Hospital },
+    { value: 'laboratorio', label: 'Laboratorios', icon: FlaskConical },
+    { value: 'especialista', label: 'Especialistas', icon: Stethoscope },
+    { value: 'odontologo', label: 'Odontólogos', icon: ToothIcon },
+    { value: 'farmacia', label: 'Farmacias', icon: Pill },
 ];
 
-export function ProviderSearchSection() {
-    const odontologos = providers.filter(p => p.type === 'odontologo');
-    
-    // Construct the map URL with markers for each provider
-    const baseMapUrl = "https://www.google.com/maps/embed/v1/view";
-    const center = odontologos.length > 0 ? `${odontologos[0].location.lat},${odontologos[0].location.lng}` : "3.420558,-76.5222";
-    
-    const markers = odontologos.map(p => `&markers=pin-l-blue%7C${p.location.lat},${p.location.lng}`);
+const ProviderList = ({ providers }: { providers: Provider[] }) => {
+    if (providers.length === 0) {
+        return <p className="text-sm text-muted-foreground p-4 text-center">No hay proveedores disponibles en esta categoría en este momento.</p>;
+    }
 
-    // Note: The Maps Embed API key is restricted and for demo purposes.
-    // You would replace this with your own API key for a production environment.
-    const mapUrl = `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12${markers.join('')}`;
-    
+    return (
+        <div className="space-y-4 p-2">
+            {providers.map(provider => (
+                <Card key={provider.name}>
+                    <CardHeader>
+                        <CardTitle className="text-base">{provider.name}</CardTitle>
+                        <CardDescription>{provider.specialty}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground">{provider.address}</p>
+                        <p className="text-sm text-muted-foreground">{provider.phone}</p>
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+    );
+};
+
+
+export function ProviderSearchSection() {
+    const [activeTab, setActiveTab] = useState<ProviderType>('odontologo');
+
+    const filteredProviders = useMemo(() => {
+        return providers.filter(p => p.type === activeTab);
+    }, [activeTab]);
+
+    const mapUrl = useMemo(() => {
+        const baseMapUrl = "https://www.google.com/maps/embed/v1/view";
+        const center = filteredProviders.length > 0 
+            ? `${filteredProviders[0].location.lat},${filteredProviders[0].location.lng}` 
+            : "3.420558,-76.5222";
+        
+        const markers = filteredProviders.map(p => `&markers=pin-l-blue%7C${p.location.lat},${p.location.lng}`);
+        
+        return `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12${markers.join('')}`;
+    }, [filteredProviders]);
+
     return (
         <section id="providers" className="w-full py-16 md:py-24 bg-background">
             <div className="container mx-auto px-4 md:px-6">
@@ -52,7 +81,11 @@ export function ProviderSearchSection() {
                 <Card className="mt-12 max-w-5xl mx-auto shadow-lg">
                     <CardContent className="p-2 md:p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div className="flex flex-col space-y-4">
-                            <Tabs defaultValue="odontologos" className="w-full">
+                            <Tabs 
+                                defaultValue={activeTab} 
+                                onValueChange={(value) => setActiveTab(value as ProviderType)}
+                                className="w-full"
+                            >
                                 <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
                                     {providerTypes.map(type => (
                                         <TabsTrigger key={type.value} value={type.value} className="flex flex-col sm:flex-row gap-2 h-auto py-2">
@@ -61,34 +94,11 @@ export function ProviderSearchSection() {
                                         </TabsTrigger>
                                     ))}
                                 </TabsList>
-                                <TabsContent value="clinics">
-                                    <p className="text-sm text-muted-foreground p-4 text-center">No hay clínicas disponibles en este momento.</p>
-                                </TabsContent>
-                                <TabsContent value="labs">
-                                    <p className="text-sm text-muted-foreground p-4 text-center">No hay laboratorios disponibles en este momento.</p>
-                                </TabsContent>
-                                <TabsContent value="specialists">
-                                     <p className="text-sm text-muted-foreground p-4 text-center">No hay especialistas disponibles en este momento.</p>
-                                </TabsContent>
-                                <TabsContent value="odontologos" className="p-1 max-h-80 overflow-y-auto">
-                                    <div className="space-y-4 p-2">
-                                        {odontologos.map(provider => (
-                                            <Card key={provider.name}>
-                                                <CardHeader>
-                                                    <CardTitle className="text-base">{provider.name}</CardTitle>
-                                                    <CardDescription>{provider.specialty}</CardDescription>
-                                                </CardHeader>
-                                                <CardContent>
-                                                    <p className="text-sm text-muted-foreground">{provider.address}</p>
-                                                    <p className="text-sm text-muted-foreground">{provider.phone}</p>
-                                                </CardContent>
-                                            </Card>
-                                        ))}
-                                    </div>
-                                </TabsContent>
-                                <TabsContent value="pharmacies">
-                                     <p className="text-sm text-muted-foreground p-4 text-center">No hay farmacias disponibles en este momento.</p>
-                                </TabsContent>
+                                {providerTypes.map(type => (
+                                     <TabsContent key={type.value} value={type.value} className="p-1 max-h-80 overflow-y-auto">
+                                        <ProviderList providers={providers.filter(p => p.type === type.value)} />
+                                     </TabsContent>
+                                ))}
                             </Tabs>
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
