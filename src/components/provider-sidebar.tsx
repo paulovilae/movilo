@@ -25,7 +25,7 @@ import {
     Wallet,
     Settings,
     LogOut,
-    UserSwitch,
+    UserCog,
 } from 'lucide-react';
 
 const providerLinks = [
@@ -86,7 +86,7 @@ export function ProviderSidebar() {
              <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                     <Link href="/dashboard">
-                        <UserSwitch />
+                        <UserCog />
                         <span>Cambiar a Socio</span>
                     </Link>
                 </SidebarMenuButton>
