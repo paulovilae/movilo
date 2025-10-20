@@ -1,13 +1,17 @@
 
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Logo } from "@/components/icons/logo";
 import { QrCodeIcon } from "@/components/icons/qr-code";
+import { useUser } from "@/firebase";
 import { Download } from "lucide-react";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export default function DigitalCardPage() {
+    const { user } = useUser();
     const cardBgImage = PlaceHolderImages.find(p => p.id === 'digital-card-bg');
 
     return (
@@ -41,8 +45,8 @@ export default function DigitalCardPage() {
                         <div className="flex items-end justify-between gap-4">
                             <div className="flex-1">
                                 <p className="text-sm opacity-80">Miembro</p>
-                                <p className="font-bold text-2xl tracking-wider">John Doe</p>
-                                <p className="font-mono text-sm opacity-80 tracking-widest">ID: MVM-12345678</p>
+                                <p className="font-bold text-2xl tracking-wider">{user?.displayName || 'Miembro del Club'}</p>
+                                <p className="font-mono text-sm opacity-80 tracking-widest">ID: MVM-{user?.uid.substring(0, 8) || '12345678'}</p>
                             </div>
                             <div className="bg-white p-2 rounded-md shadow-md">
                                 <QrCodeIcon className="w-20 h-20 text-black" />
@@ -61,5 +65,3 @@ export default function DigitalCardPage() {
         </div>
     );
 }
-
-    

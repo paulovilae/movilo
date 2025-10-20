@@ -1,14 +1,17 @@
 
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Gift, HeartPulse, User } from "lucide-react";
+import { useUser } from "@/firebase";
+import { ArrowRight, Gift, HeartPulse, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 
 const summaryCards = [
     {
         title: "Mi Plan Actual",
         description: "Plan Familiar",
-        icon: User,
+        icon: UserIcon,
         cta: {
             text: "Gestionar Plan",
             href: "/dashboard/plan"
@@ -35,10 +38,12 @@ const summaryCards = [
 ]
 
 export default function DashboardPage() {
+    const { user } = useUser();
+
     return (
         <div className="p-4 sm:p-6 md:p-8">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold font-headline">Hola, John</h1>
+                <h1 className="text-3xl font-bold font-headline">Hola, {user?.displayName?.split(' ')[0] || 'Usuario'}</h1>
                 <p className="text-muted-foreground">Bienvenido a tu panel de control de Movilo.club.</p>
             </div>
             
@@ -83,5 +88,3 @@ export default function DashboardPage() {
         </div>
     )
 }
-
-    
