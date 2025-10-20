@@ -181,3 +181,43 @@ export const providers: Provider[] = [
     location: { lat: 3.451, lng: -76.532 }
   },
 ];
+
+export type HistoryItem = {
+    provider: string;
+    service: string;
+    date: string;
+    discount: string;
+};
+
+export const history: HistoryItem[] = [
+    {
+        provider: "Sonrisa Perfecta",
+        service: "Limpieza Dental",
+        date: "2024-05-15",
+        discount: "15%",
+    },
+    {
+        provider: "Dr. Carlos Valdivieso",
+        service: "Consulta Cardiológica",
+        date: "2024-05-10",
+        discount: "10%",
+    },
+    {
+        provider: "Laboratorio Clínico Angel",
+        service: "Examen de Sangre",
+        date: "2024-04-28",
+        discount: "20%",
+    },
+    {
+        provider: "Drogas La Rebaja",
+        service: "Compra de Medicamentos",
+        date: "2024-04-25",
+        discount: "5%",
+    },
+    {
+        provider: "Clínica Dental Sonríe",
+        service: "Ortodoncia - Ajuste",
+        date: "2024-04-12",
+        discount: "10%",
+    }
+];

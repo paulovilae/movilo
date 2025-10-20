@@ -1,10 +1,11 @@
+
 'use client'
 import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search, Hospital, FlaskConical, Stethoscope, Pill } from 'lucide-react';
+import { Search, Hospital, FlaskConical, Stethoscope, Pill, Phone } from 'lucide-react';
 import { providers, Provider, ProviderType } from '@/lib/data';
 
 // A "Tooth" icon is not available in lucide-react, so we create a simple SVG.
@@ -18,10 +19,10 @@ const ToothIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const providerTypes = [
+    { value: 'odontologo', label: 'Odontólogos', icon: ToothIcon },
     { value: 'clinica', label: 'Clínicas', icon: Hospital },
     { value: 'laboratorio', label: 'Laboratorios', icon: FlaskConical },
     { value: 'especialista', label: 'Especialistas', icon: Stethoscope },
-    { value: 'odontologo', label: 'Odontólogos', icon: ToothIcon },
     { value: 'farmacia', label: 'Farmacias', icon: Pill },
 ];
 
@@ -34,13 +35,16 @@ const ProviderList = ({ providers }: { providers: Provider[] }) => {
         <div className="space-y-4 p-2">
             {providers.map(provider => (
                 <Card key={provider.name}>
-                    <CardHeader>
+                    <CardHeader className="pb-4">
                         <CardTitle className="text-base">{provider.name}</CardTitle>
                         <CardDescription>{provider.specialty}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-sm text-muted-foreground">{provider.address}</p>
-                        <p className="text-sm text-muted-foreground">{provider.phone}</p>
+                        <p className="text-sm text-muted-foreground mb-2">{provider.address}</p>
+                        <a href={`tel:${provider.phone}`} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                            <Phone className="w-4 h-4" />
+                            {provider.phone}
+                        </a>
                     </CardContent>
                 </Card>
             ))}
@@ -61,7 +65,20 @@ export function ProviderSearchSection() {
         );
     }, [activeTab, searchTerm]);
 
-    const mapUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&q=Cali,Valle+del+Cauca&zoom=12`;
+    const mapUrl = useMemo(() => {
+        const base = "https://www.google.com/maps/embed/v1/place";
+        const key = process.env.NEXT_PUBLIC_MAPS_API_KEY;
+        const caliLocation = "Cali,Valle+del+Cauca";
+
+        if (!key) {
+            console.error("Google Maps API Key is missing.");
+            return `${base}?key=&q=${caliLocation}&zoom=12`;
+        }
+        
+        return `${base}?key=${key}&q=${caliLocation}&zoom=12`;
+
+    }, []);
+
 
     const handleSearch = () => {
         // The filtering is already happening in useMemo, but we can have a button
@@ -86,7 +103,7 @@ export function ProviderSearchSection() {
                                 onValueChange={(value) => setActiveTab(value as ProviderType)}
                                 className="w-full"
                             >
-                                <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
+                                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 h-auto">
                                     {providerTypes.map(type => (
                                         <TabsTrigger key={type.value} value={type.value} className="flex flex-col sm:flex-row gap-2 h-auto py-2">
                                             <type.icon className="h-5 w-5" />

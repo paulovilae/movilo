@@ -1,3 +1,4 @@
+
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -25,6 +26,7 @@ import {
     CreditCard,
     Settings,
     LogOut,
+    History,
 } from 'lucide-react';
 
 const clientLinks = [
@@ -33,6 +35,7 @@ const clientLinks = [
     { href: '/dashboard/search', label: 'Buscar Servicios', icon: Search },
     { href: '/dashboard/appointments', label: 'Citas', icon: Calendar },
     { href: '/dashboard/digital-card', label: 'Mi Carné Digital', icon: CreditCard },
+    { href: '/dashboard/history', label: 'Mi Historial', icon: History },
 ];
 
 const settingsLinks = [
