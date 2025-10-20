@@ -21,7 +21,7 @@ export function PlansSection() {
           {plans.map((plan) => (
             <Card key={plan.name} className={cn('flex flex-col', plan.popular && 'border-primary ring-2 ring-primary relative')}>
                 {plan.popular && (
-                    <Badge className="absolute -top-3 right-4 bg-accent text-accent-foreground hover:bg-accent">Popular</Badge>
+                    <Badge variant="destructive" className="absolute -top-3 right-4 hover:bg-destructive/90">Popular</Badge>
                 )}
               <CardHeader className="items-center text-center">
                 <plan.icon className="h-12 w-12 text-primary mb-4" />
@@ -33,9 +33,9 @@ export function PlansSection() {
               </CardHeader>
               <CardContent className="flex-1">
                 <ul className="space-y-3 text-sm">
-                  {plan.benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-start">
-                      <Check className="h-5 w-5 text-accent mr-2 mt-0.5 shrink-0" />
+                  {plan.benefits.map((benefit, index) => (
+                    <li key={index} className="flex items-start">
+                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 shrink-0" />
                       <span className="text-muted-foreground">{benefit}</span>
                     </li>
                   ))}
@@ -51,5 +51,3 @@ export function PlansSection() {
     </section>
   );
 }
-
-    

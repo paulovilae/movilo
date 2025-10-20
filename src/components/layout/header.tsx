@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Globe } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
 
 const navLinks = [
-  { href: '#plans', label: 'Plans' },
-  { href: '#providers', label: 'Providers' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '#plans', label: 'Planes' },
+  { href: '#providers', label: 'Proveedores' },
+  { href: '#faq', label: 'Preguntas Frecuentes' },
 ];
 
 export default function Header() {
@@ -31,15 +31,11 @@ export default function Header() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 md:flex">
-            <Button variant="ghost" size="icon">
-                <Globe className="h-5 w-5" />
-                <span className="sr-only">Language</span>
-            </Button>
             <Button variant="ghost" asChild>
-                <Link href="/login">Log In</Link>
+                <Link href="/login">Ingresar</Link>
             </Button>
             <Button asChild>
-                <Link href="/signup">Sign Up</Link>
+                <Link href="/signup">Registrarse</Link>
             </Button>
         </div>
         <Sheet>
@@ -67,10 +63,10 @@ export default function Header() {
               </nav>
               <div className="flex flex-col gap-2">
                 <Button variant="outline" asChild>
-                    <Link href="/login">Log In</Link>
+                    <Link href="/login">Ingresar</Link>
                 </Button>
                 <Button asChild>
-                    <Link href="/signup">Sign Up</Link>
+                    <Link href="/signup">Registrarse</Link>
                 </Button>
               </div>
             </div>
@@ -80,5 +76,3 @@ export default function Header() {
     </header>
   );
 }
-
-    

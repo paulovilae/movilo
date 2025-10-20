@@ -1,10 +1,8 @@
 
-import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Search, Hospital, FlaskConical, Stethoscope, Pill } from 'lucide-react';
 
 const providerTypes = [
@@ -15,8 +13,6 @@ const providerTypes = [
 ];
 
 export function ProviderSearchSection() {
-    const mapImage = PlaceHolderImages.find(p => p.id === 'map-cali');
-
     return (
         <section id="providers" className="w-full py-16 md:py-24 bg-background">
             <div className="container mx-auto px-4 md:px-6">
@@ -63,16 +59,16 @@ export function ProviderSearchSection() {
                         </div>
 
                         <div className="relative rounded-lg overflow-hidden min-h-[300px] lg:min-h-full">
-                            {mapImage && (
-                                <Image
-                                    src={mapImage.imageUrl}
-                                    alt={mapImage.description}
-                                    fill
-                                    className="object-cover"
-                                    data-ai-hint={mapImage.imageHint}
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-black/10" />
+                             <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254921.9559388363!2d-76.64150428131034!3d3.42055869389336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6f0cfd1b103%3A0x327503796b48a86a!2sCali%2C%20Valle%20del%20Cauca%2C%20Colombia!5e0!3m2!1sen!2sus!4v162283334 Cali, Colombia" 
+                                width="100%" 
+                                height="100%" 
+                                style={{border:0}} 
+                                allowFullScreen={false} 
+                                loading="lazy"
+                                title="Mapa de Cali"
+                                className="absolute inset-0 w-full h-full"
+                            ></iframe>
                         </div>
                     </CardContent>
                 </Card>
@@ -80,5 +76,3 @@ export function ProviderSearchSection() {
         </section>
     );
 }
-
-    

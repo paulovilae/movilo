@@ -19,10 +19,10 @@ export const plans: Plan[] = [
     priceDetails: 'COP / año',
     icon: User,
     benefits: [
-      'Descuentos del 5% al 20% en red de servicios especializados.',
-      'Descuentos del 5% al 20% en servicios veterinarios.',
-      'Descuentos en aliados estratégicos (restaurantes, cines, etc.).',
-      'Incluye una mascota por $29.900. Mascota adicional por $19.900.',
+      'Descuentos del 5% al 20% en red de servicios especializados (consulta, ayudas dx y procedimientos quirúrgicos).',
+      'Descuentos del 5% al 20% en servicios veterinarios en Red Aliada (consultas, ayudas DX, Hospitalización y cirugías).',
+      'Descuentos en aliados estratégicos (restaurantes, cines, comercio, recreación y cultura).',
+      'Inclusión de una mascota por $29.900. Mascota adicional por $19.900.',
     ],
     cta: 'Empezar ahora',
   },
@@ -35,13 +35,13 @@ export const plans: Plan[] = [
       'Todos los beneficios del Plan Individual para 2 personas.',
       'Descuentos del 5% al 20% en red de servicios especializados.',
       'Descuentos del 5% al 20% en servicios veterinarios.',
-      'Incluye una mascota por $29.900. Mascota adicional por $19.900.',
+      'Inclusión de una mascota por $29.900. Mascota adicional por $19.900.',
     ],
     cta: 'Elegir Plan Pareja',
     popular: true,
   },
   {
-    name: 'Plan Familiar',
+    name: 'Plan Familia',
     price: '$219.800',
     priceDetails: 'COP / año',
     icon: Users,
@@ -69,21 +69,21 @@ export const faqs: FaqItem[] = [
   {
     question: '¿Cómo funciona la membresía?',
     answer:
-      'Una vez te afilies, recibirás una tarjeta digital con un código QR. Simplemente presenta tu tarjeta en cualquiera de nuestros proveedores afiliados para recibir el descuento acordado en el momento de pagar por el servicio.',
+      'Una vez te afilies, recibirás un carné digital. Simplemente preséntalo en cualquiera de nuestros proveedores afiliados para recibir el descuento acordado en el momento de pagar por el servicio.',
   },
   {
     question: '¿Hay algún período de espera para usar los beneficios?',
     answer:
-      'No, puedes empezar a usar tus beneficios inmediatamente después de que tu afiliación sea procesada y recibas tu tarjeta digital. No hay períodos de carencia ni preexistencias.',
+      'No, puedes empezar a usar tus beneficios inmediatamente después de que tu afiliación sea procesada y recibas tu carné digital. No hay períodos de carencia ni preexistencias.',
   },
   {
     question: '¿Puedo cancelar mi membresía en cualquier momento?',
     answer:
-      'Sí, puedes cancelar tu membresía en cualquier momento desde tu panel de cliente. La cancelación será efectiva al final de tu ciclo de facturación actual.',
+      'Sí, puedes cancelar tu membresía cuando quieras. La cancelación será efectiva al final de tu ciclo de facturación actual.',
   },
   {
     question: '¿Qué diferencia hay entre los planes?',
     answer:
-      'La principal diferencia es la cantidad de personas que cubre cada plan. El Plan Individual es para una persona, el Plan Pareja para dos y el Plan Familiar para hasta cuatro miembros del mismo núcleo familiar.',
+      'La principal diferencia es la cantidad de personas que cubre cada plan. El Plan Individual es para una persona, el Plan Pareja para dos y el Plan Familia para hasta cuatro personas del mismo núcleo familiar.',
   },
 ];

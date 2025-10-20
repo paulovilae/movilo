@@ -7,8 +7,8 @@ import {Toaster} from '@/components/ui/toaster';
 const inter = Inter({subsets: ['latin'], variable: '--font-sans'});
 
 export const metadata: Metadata = {
-  title: 'Movilo.club - Your Health Discount Club',
-  description: 'Access affordable healthcare with Movilo.club. Find clinics, labs, and specialists in Cali.',
+  title: 'Movilo.club - Tu Club de Descuentos en Salud',
+  description: 'Accede a salud asequible con Movilo.club. Encuentra clínicas, laboratorios y especialistas en Cali.',
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -30,5 +30,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    
