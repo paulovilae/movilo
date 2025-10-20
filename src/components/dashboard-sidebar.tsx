@@ -1,6 +1,5 @@
-
 'use client';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   Sidebar,
@@ -17,7 +16,7 @@ import {
 import { Logo } from '@/components/icons/logo';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useUser, useAuth } from '@/firebase';
 import {
     LayoutDashboard,
     HeartHandshake,
@@ -26,7 +25,6 @@ import {
     CreditCard,
     Settings,
     LogOut,
-    User,
 } from 'lucide-react';
 
 const clientLinks = [
@@ -43,7 +41,14 @@ const settingsLinks = [
 
 export function DashboardSidebar() {
   const pathname = usePathname();
-  const avatarImage = PlaceHolderImages.find(p => p.id === 'avatar-1');
+  const { user } = useUser();
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    auth.signOut();
+    router.push('/');
+  };
 
   return (
     <Sidebar>
@@ -83,25 +88,23 @@ export function DashboardSidebar() {
       </SidebarContent>
       <SidebarFooter className='gap-4'>
         <SidebarSeparator />
-        <div className='flex items-center gap-2 p-2'>
-            <Avatar className="h-10 w-10">
-                {avatarImage && <AvatarImage src={avatarImage.imageUrl} alt="User avatar" data-ai-hint={avatarImage.imageHint} />}
-                <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
-            <div className='flex flex-col'>
-                <span className='text-sm font-semibold'>John Doe</span>
-                <span className='text-xs text-muted-foreground'>john.doe@email.com</span>
+        {user && (
+            <div className='flex items-center gap-2 p-2'>
+                <Avatar className="h-10 w-10">
+                    <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
+                    <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+                </Avatar>
+                <div className='flex flex-col overflow-hidden'>
+                    <span className='text-sm font-semibold truncate'>{user.displayName}</span>
+                    <span className='text-xs text-muted-foreground truncate'>{user.email}</span>
+                </div>
             </div>
-        </div>
-         <Button variant="ghost" className="w-full justify-start gap-2" asChild>
-            <Link href="/">
-                <LogOut />
-                <span>Cerrar Sesión</span>
-            </Link>
+        )}
+         <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleSignOut}>
+            <LogOut />
+            <span>Cerrar Sesión</span>
         </Button>
       </SidebarFooter>
     </Sidebar>
   );
 }
-
-    

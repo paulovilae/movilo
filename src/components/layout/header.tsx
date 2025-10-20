@@ -1,10 +1,20 @@
-
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
+import { useUser, useAuth } from '@/firebase';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
+import { useRouter } from 'next/navigation';
 
 const navLinks = [
   { href: '#plans', label: 'Planes' },
@@ -13,6 +23,15 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    auth.signOut();
+    router.push('/');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/80 backdrop-blur-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
@@ -31,12 +50,49 @@ export default function Header() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 md:flex">
-            <Button variant="ghost" asChild>
+          {isUserLoading ? (
+            <div />
+          ) : user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
+                    <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{user.displayName}</p>
+                    <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => router.push('/dashboard')}>
+                  Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
+                  Configuración
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleSignOut}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Cerrar Sesión</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button variant="ghost" asChild>
                 <Link href="/login">Ingresar</Link>
-            </Button>
-            <Button asChild>
+              </Button>
+              <Button asChild>
                 <Link href="/signup">Registrarse</Link>
-            </Button>
+              </Button>
+            </>
+          )}
         </div>
         <Sheet>
           <SheetTrigger asChild>
@@ -61,13 +117,22 @@ export default function Header() {
                   </Link>
                 ))}
               </nav>
-              <div className="flex flex-col gap-2">
-                <Button variant="outline" asChild>
-                    <Link href="/login">Ingresar</Link>
-                </Button>
-                <Button asChild>
-                    <Link href="/signup">Registrarse</Link>
-                </Button>
+               <div className="flex flex-col gap-2">
+                {user ? (
+                   <>
+                    <Button variant="outline" asChild><Link href="/dashboard">Ir al Dashboard</Link></Button>
+                    <Button onClick={handleSignOut}><LogOut className="mr-2 h-4 w-4" /> Cerrar Sesión</Button>
+                   </>
+                ) : (
+                  <>
+                    <Button variant="outline" asChild>
+                        <Link href="/login">Ingresar</Link>
+                    </Button>
+                    <Button asChild>
+                        <Link href="/signup">Registrarse</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </SheetContent>
