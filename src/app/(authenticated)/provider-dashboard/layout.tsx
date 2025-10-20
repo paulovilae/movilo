@@ -1,5 +1,5 @@
 
-import { DashboardSidebar } from '@/components/dashboard-sidebar';
+import { ProviderSidebar } from '@/components/provider-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 
 export default function ProviderDashboardLayout({
@@ -9,7 +9,7 @@ export default function ProviderDashboardLayout({
 }) {
   return (
     <SidebarProvider>
-        <DashboardSidebar />
+        <ProviderSidebar />
         <SidebarInset>
             <div className="min-h-screen">
                 {children}
@@ -18,5 +18,3 @@ export default function ProviderDashboardLayout({
     </SidebarProvider>
   );
 }
-
-    
