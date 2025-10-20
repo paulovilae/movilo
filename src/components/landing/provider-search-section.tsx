@@ -1,4 +1,3 @@
-
 'use client'
 import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
@@ -68,13 +67,8 @@ export function ProviderSearchSection() {
             ? `${filteredProviders[0].location.lat},${filteredProviders[0].location.lng}` 
             : "3.420558,-76.5222";
         
-        // The 'view' mode for Google Maps Embed API doesn't support markers. 
-        // We'll use a search query instead to show relevant results.
-        // A better approach would be to use the Maps JavaScript API for full control.
-        const searchString = activeTab === 'farmacia' ? 'farmacias en Cali' : `servicios de ${activeTab} en Cali`;
-
-        return `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12&q=${encodeURIComponent(searchString)}`;
-    }, [filteredProviders, activeTab]);
+        return `${baseMapUrl}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&center=${center}&zoom=12`;
+    }, [filteredProviders]);
 
     const handleSearch = () => {
         // The filtering is already happening in useMemo, but we can have a button
