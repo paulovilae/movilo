@@ -7,7 +7,7 @@ import { Check, ArrowRight, Building, FileText, BadgeCheck } from "lucide-react"
 import Link from "next/link";
 
 const benefits = [
-    "Acceso a una creciente base de pacientes.",
+    "Acceso a una creciente base de socios.",
     "Aumento de la visibilidad de tu práctica o negocio.",
     "Marketing y promoción por parte de Movilo.club.",
     "Sin costos de afiliación ni mensualidades.",
@@ -39,7 +39,7 @@ export default function ProviderSignupPage() {
                     <div className="container px-4 md:px-6">
                         <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter">Únete a Nuestra Red de Proveedores</h1>
                         <p className="max-w-3xl mx-auto mt-4 text-lg md:text-xl text-muted-foreground">
-                            Haz crecer tu negocio y llega a miles de nuevos pacientes formando parte del club de salud más grande de Cali.
+                            Haz crecer tu negocio y llega a miles de nuevos socios formando parte del club de salud más grande de Cali.
                         </p>
                     </div>
                 </section>
@@ -50,7 +50,7 @@ export default function ProviderSignupPage() {
                             <div>
                                 <h2 className="text-3xl font-bold font-headline mb-4">¿Por qué ser parte de Movilo.club?</h2>
                                 <p className="text-muted-foreground mb-6">
-                                    Al unirte a nuestra red, te conectamos con una comunidad de usuarios que buscan activamente servicios de salud de calidad a precios asequibles. Nos encargamos del marketing para que tú te concentres en lo que mejor sabes hacer: cuidar de tus pacientes.
+                                    Al unirte a nuestra red, te conectamos con una comunidad de usuarios que buscan activamente servicios de salud de calidad a precios asequibles. Nos encargamos del marketing para que tú te concentres en lo que mejor sabes hacer: cuidar de tus socios.
                                 </p>
                                 <ul className="space-y-3">
                                     {benefits.map((benefit, index) => (
