@@ -1,8 +1,9 @@
+
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogOut, Briefcase } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@/components/ui/sheet';
+import { Menu, LogOut, Briefcase, Shield } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
 import { useUser, useAuth } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -71,14 +72,18 @@ export default function Header() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push('/dashboard')}>
-                  Dashboard
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
-                  Configuración
+                  Portal Socio
                 </DropdownMenuItem>
                  <DropdownMenuItem onClick={() => router.push('/provider-dashboard')}>
                   <Briefcase className="mr-2 h-4 w-4" />
-                  <span>Portal de Proveedor</span>
+                  <span>Portal Proveedor</span>
+                </DropdownMenuItem>
+                 <DropdownMenuItem onClick={() => router.push('/admin')}>
+                  <Shield className="mr-2 h-4 w-4" />
+                  <span>Panel Admin</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
+                  Configuración
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut}>
@@ -106,6 +111,10 @@ export default function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right">
+            <SheetHeader className="sr-only">
+              <SheetTitle>Menu</SheetTitle>
+              <SheetDescription>Main navigation menu for the site.</SheetDescription>
+            </SheetHeader>
             <div className="flex flex-col gap-6 p-6">
               <Link href="/" className="flex items-center gap-2">
                 <Logo />
