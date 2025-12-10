@@ -1,3 +1,4 @@
+
 'use client'
 import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
@@ -6,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Search, Hospital, FlaskConical, Stethoscope, Pill, Phone } from 'lucide-react';
 import { providers, Provider, ProviderType } from '@/lib/data';
+import { cn } from '@/lib/utils';
 
 // A "Tooth" icon is not available in lucide-react, so we create a simple SVG.
 const ToothIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -25,7 +27,7 @@ const providerTypes = [
     { value: 'farmacia', label: 'Farmacias', icon: Pill },
 ];
 
-const ProviderList = ({ providers }: { providers: Provider[] }) => {
+const ProviderList = ({ providers, onProviderSelect, selectedProvider }: { providers: Provider[], onProviderSelect: (provider: Provider) => void, selectedProvider: Provider | null }) => {
     if (providers.length === 0) {
         return <p className="text-sm text-muted-foreground p-4 text-center">No hay proveedores disponibles en esta categoría en este momento.</p>;
     }
@@ -33,14 +35,21 @@ const ProviderList = ({ providers }: { providers: Provider[] }) => {
     return (
         <div className="space-y-4 p-2">
             {providers.map(provider => (
-                <Card key={provider.name}>
+                <Card 
+                    key={provider.name} 
+                    onClick={() => onProviderSelect(provider)}
+                    className={cn(
+                        "cursor-pointer transition-all",
+                        selectedProvider?.name === provider.name ? "border-primary ring-2 ring-primary" : "hover:border-muted-foreground/50"
+                    )}
+                >
                     <CardHeader className="pb-4">
                         <CardTitle className="text-base">{provider.name}</CardTitle>
                         <CardDescription>{provider.specialty}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <p className="text-sm text-muted-foreground mb-2">{provider.address}</p>
-                        <a href={`tel:${provider.phone}`} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                        <a href={`tel:${provider.phone}`} onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                             <Phone className="w-4 h-4" />
                             {provider.phone}
                         </a>
@@ -55,12 +64,17 @@ const ProviderList = ({ providers }: { providers: Provider[] }) => {
 export function ProviderSearchSection() {
     const [activeTab, setActiveTab] = useState<ProviderType>('odontologo');
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
 
     const filteredProviders = useMemo(() => {
-        return providers.filter(p => p.type === activeTab &&
-            (p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-             p.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
-             p.address.toLowerCase().includes(searchTerm.toLowerCase()))
+        const providersInTab = providers.filter(p => p.type === activeTab);
+        if (!searchTerm) {
+            return providersInTab;
+        }
+        return providersInTab.filter(p => 
+            p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            p.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            p.address.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [activeTab, searchTerm]);
 
@@ -69,14 +83,26 @@ export function ProviderSearchSection() {
         const key = "AIzaSyCncXdGUy0hm5zLKSjSgtMfnOHWcmKgNi0";
         const caliLocation = "Cali,Valle+del+Cauca";
         
-        return `${base}?key=${key}&q=${caliLocation}&zoom=12`;
+        let query = caliLocation;
+        let zoom = 12;
 
-    }, []);
+        if (selectedProvider) {
+            query = encodeURIComponent(`${selectedProvider.name}, ${selectedProvider.address}`);
+            zoom = 15;
+        }
+
+        return `${base}?key=${key}&q=${query}&zoom=${zoom}`;
+
+    }, [selectedProvider]);
 
 
     const handleSearch = () => {
         // The filtering is already happening in useMemo, but we can have a button
         // for a more explicit user action if needed. For now, it filters as you type.
+    };
+    
+    const handleProviderSelect = (provider: Provider) => {
+        setSelectedProvider(provider);
     };
 
     return (
@@ -94,7 +120,10 @@ export function ProviderSearchSection() {
                         <div className="flex flex-col space-y-4">
                             <Tabs 
                                 defaultValue={activeTab} 
-                                onValueChange={(value) => setActiveTab(value as ProviderType)}
+                                onValueChange={(value) => {
+                                    setActiveTab(value as ProviderType);
+                                    setSelectedProvider(null);
+                                }}
                                 className="w-full"
                             >
                                 <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 h-auto">
@@ -106,8 +135,12 @@ export function ProviderSearchSection() {
                                     ))}
                                 </TabsList>
                                 {providerTypes.map(type => (
-                                     <TabsContent key={type.value} value={type.value} className="p-1 max-h-80 overflow-y-auto">
-                                        <ProviderList providers={filteredProviders} />
+                                     <TabsContent key={type.value} value={type.value} className="p-1 max-h-[400px] overflow-y-auto">
+                                        <ProviderList 
+                                            providers={filteredProviders} 
+                                            onProviderSelect={handleProviderSelect}
+                                            selectedProvider={selectedProvider}
+                                        />
                                      </TabsContent>
                                 ))}
                             </Tabs>
@@ -120,10 +153,6 @@ export function ProviderSearchSection() {
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </div>
-                             <Button size="lg" className="w-full" onClick={handleSearch}>
-                                <Search className="mr-2 h-5 w-5" />
-                                Buscar
-                            </Button>
                         </div>
 
                         <div className="relative rounded-lg overflow-hidden min-h-[300px] lg:min-h-full">
@@ -144,3 +173,5 @@ export function ProviderSearchSection() {
         </section>
     );
 }
+
+    
