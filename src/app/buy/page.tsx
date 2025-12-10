@@ -31,7 +31,8 @@ function BuyPageContent() {
   useEffect(() => {
     // If auth state is not loading and there's no user, redirect to login
     if (!isUserLoading && !user) {
-      router.push('/login?redirect=/buy&plan=' + encodeURIComponent(planName));
+      const redirectUrl = `/buy?plan=${encodeURIComponent(planName)}`;
+      router.push(`/login?redirect=${encodeURIComponent(redirectUrl)}`);
     }
   }, [user, isUserLoading, router, planName]);
 
@@ -41,7 +42,7 @@ function BuyPageContent() {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-1 flex items-center justify-center">
-            <div>Loading...</div>
+            <div>Cargando...</div>
         </main>
         <Footer />
       </div>

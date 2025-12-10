@@ -38,13 +38,8 @@ function LoginPageContent() {
   useEffect(() => {
     if (!isUserLoading && user) {
       const redirectUrl = searchParams.get('redirect');
-      const plan = searchParams.get('plan');
       if (redirectUrl) {
-        let url = redirectUrl;
-        if (plan) {
-            url += `?plan=${encodeURIComponent(plan)}`;
-        }
-        router.push(url);
+        router.push(decodeURIComponent(redirectUrl));
       } else {
         router.push('/dashboard');
       }
@@ -56,7 +51,7 @@ function LoginPageContent() {
   };
 
   if (isUserLoading || user) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -122,7 +117,7 @@ function LoginPageContent() {
 
 export default function LoginPage() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Cargando...</div>}>
             <LoginPageContent />
         </Suspense>
     );
