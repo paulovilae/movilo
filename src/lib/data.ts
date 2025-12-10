@@ -15,7 +15,7 @@ export type Plan = {
 export const plans: Plan[] = [
   {
     name: 'Plan Individual',
-    price: '$69.900',
+    price: '$79.900',
     priceDetails: 'COP / año',
     icon: User,
     benefits: [
@@ -28,7 +28,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Plan Pareja',
-    price: '$119.800',
+    price: '$139.900',
     priceDetails: 'COP / año',
     icon: UserRoundPlus,
     benefits: [
@@ -42,7 +42,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Plan Familia',
-    price: '$219.800',
+    price: '$249.900',
     priceDetails: 'COP / año',
     icon: Users,
     benefits: [
