@@ -18,7 +18,6 @@ import { initiateGoogleSignIn } from "@/firebase/auth";
 import { useAuth, useUser } from "@/firebase";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, Suspense } from "react";
-import { Separator } from "@/components/ui/separator";
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px" {...props}>
@@ -47,11 +46,17 @@ function LoginPageContent() {
   }, [user, isUserLoading, router, searchParams]);
   
   const handleGoogleSignIn = () => {
-    initiateGoogleSignIn(auth);
+    if (auth) {
+      initiateGoogleSignIn(auth);
+    }
   };
 
   if (isUserLoading || user) {
-    return <div>Cargando...</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        Cargando...
+      </div>
+    );
   }
 
   return (
@@ -122,3 +127,4 @@ export default function LoginPage() {
         </Suspense>
     );
 }
+
