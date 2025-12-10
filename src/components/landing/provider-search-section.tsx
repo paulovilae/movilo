@@ -66,12 +66,8 @@ export function ProviderSearchSection() {
 
     const mapUrl = useMemo(() => {
         const base = "https://www.google.com/maps/embed/v1/place";
-        const key = process.env.NEXT_PUBLIC_MAPS_API_KEY;
+        const key = "AIzaSyCncXdGUy0hm5zLKSjSgtMfnOHWcmKgNi0";
         const caliLocation = "Cali,Valle+del+Cauca";
-
-        if (!key) {
-            return `${base}?key=&q=${caliLocation}&zoom=12`;
-        }
         
         return `${base}?key=${key}&q=${caliLocation}&zoom=12`;
 
