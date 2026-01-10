@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, LogOut, Briefcase, Shield } from 'lucide-react';
-import { Logo } from '@/components/icons/logo';
 import { useUser, useAuth } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
@@ -37,7 +36,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-card/80 backdrop-blur-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <Logo />
+          <img src="/Movilo/Logotipo/Imagotipo 1.png" alt="Movilo Logo" className="h-10 w-auto" />
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
@@ -74,11 +73,11 @@ export default function Header() {
                 <DropdownMenuItem onClick={() => router.push('/dashboard')}>
                   Portal Socio
                 </DropdownMenuItem>
-                 <DropdownMenuItem onClick={() => router.push('/provider-dashboard')}>
+                <DropdownMenuItem onClick={() => router.push('/provider-dashboard')}>
                   <Briefcase className="mr-2 h-4 w-4" />
                   <span>Portal Proveedor</span>
                 </DropdownMenuItem>
-                 <DropdownMenuItem onClick={() => router.push('/admin')}>
+                <DropdownMenuItem onClick={() => router.push('/admin')}>
                   <Shield className="mr-2 h-4 w-4" />
                   <span>Panel Admin</span>
                 </DropdownMenuItem>
@@ -117,7 +116,7 @@ export default function Header() {
             </SheetHeader>
             <div className="flex flex-col gap-6 p-6">
               <Link href="/" className="flex items-center gap-2">
-                <Logo />
+                <img src="/Movilo/Logotipo/Imagotipo 1.png" alt="Movilo Logo" className="h-10 w-auto" />
               </Link>
               <nav className="flex flex-col gap-4">
                 {navLinks.map((link) => (
@@ -130,19 +129,19 @@ export default function Header() {
                   </Link>
                 ))}
               </nav>
-               <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 {user ? (
-                   <>
+                  <>
                     <Button variant="outline" asChild><Link href="/dashboard">Ir al Dashboard</Link></Button>
                     <Button onClick={handleSignOut}><LogOut className="mr-2 h-4 w-4" /> Cerrar Sesión</Button>
-                   </>
+                  </>
                 ) : (
                   <>
                     <Button variant="outline" asChild>
-                        <Link href="/login">Ingresar</Link>
+                      <Link href="/login">Ingresar</Link>
                     </Button>
                     <Button asChild>
-                        <Link href="/signup">Registrarse</Link>
+                      <Link href="/signup">Registrarse</Link>
                     </Button>
                   </>
                 )}

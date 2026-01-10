@@ -11,19 +11,32 @@ export function PlansSection() {
   return (
     <section id="plans" className="w-full py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="mx-auto max-w-3xl text-center space-y-4">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold">Planes para Todos</h2>
-          <p className="text-muted-foreground md:text-lg">
-            Elige el plan que mejor se adapte a tus necesidades y comienza a ahorrar en tu salud hoy mismo.
-          </p>
+        <div className="mx-auto max-w-4xl flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+          <div className="space-y-4 max-w-xl">
+            <h2 className="text-3xl md:text-4xl font-headline font-bold">Planes para Todos</h2>
+            <p className="text-muted-foreground md:text-lg">
+              Elige el plan que mejor se adapte a tus necesidades y comienza a ahorrar en tu salud hoy mismo.
+            </p>
+          </div>
+          <div className="w-[200px] md:w-[250px] aspect-[9/16] relative overflow-hidden rounded-xl shadow-lg bg-transparent">
+            <video
+              src="/Movilo/Memo/memo-waving-video.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover scale-[1.35]"
+              style={{ objectPosition: 'center' }}
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 max-w-5xl mx-auto">
           {plans.map((plan) => (
             <Card key={plan.name} className={cn('flex flex-col', plan.popular && 'border-primary ring-2 ring-primary relative')}>
-                {plan.popular && (
-                    <Badge variant="destructive" className="absolute -top-3 right-4 hover:bg-destructive/90">Popular</Badge>
-                )}
+              {plan.popular && (
+                <Badge variant="destructive" className="absolute -top-3 right-4 hover:bg-destructive/90">Popular</Badge>
+              )}
               <CardHeader className="items-center text-center">
                 <plan.icon className="h-12 w-12 text-primary mb-4" />
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>

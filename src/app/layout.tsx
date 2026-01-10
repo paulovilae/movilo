@@ -1,14 +1,27 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Montserrat, Comfortaa } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const comfortaa = Comfortaa({
+  subsets: ['latin'],
+  variable: '--font-heading',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Movilo.club - Tu Club de Descuentos en Salud',
   description: 'Accede a salud asequible con Movilo.club. Encuentra clínicas, laboratorios y especialistas en Cali.',
+  icons: {
+    icon: '/Movilo/Logotipo/Isotipo Original 1.png',
+  }
 };
 
 export default function RootLayout({
@@ -17,12 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="es" suppressHydrationWarning className={`${montserrat.variable} ${comfortaa.variable}`}>
       <body className="font-body antialiased">
         <FirebaseClientProvider>
           {children}
