@@ -7,8 +7,6 @@
     "dev:emulators": "concurrently \"firebase emulators:start\" \"next dev -p 3307\"",
     "stop": "fuser -k 3307/tcp 4000/tcp 9099/tcp 8080/tcp 4400/tcp 4500/tcp 2>/dev/null || true",
     "emulators": "firebase emulators:start",
-    "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
-    "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "build": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
@@ -16,8 +14,6 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@genkit-ai/google-genai": "^1.24.0",
-    "@genkit-ai/next": "^1.25.0",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
@@ -47,7 +43,6 @@
     "dotenv": "^16.4.5",
     "embla-carousel-react": "^8.1.6",
     "firebase": "^10.12.3",
-    "genkit": "^1.24.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.408.0",
     "next": "14.2.35",
@@ -67,17 +62,8 @@
     "@types/react": "^18.3.27",
     "@types/react-dom": "^18.3.7",
     "concurrently": "^9.2.1",
-    "genkit-cli": "^1.24.0",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.3"
-  },
-  "overrides": {
-    "@genkit-ai/next": {
-      "next": "$next"
-    },
-    "@genkit-ai/firebase": {
-      "firebase": "$firebase"
-    }
   }
 }
