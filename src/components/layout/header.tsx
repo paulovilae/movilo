@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 
 const navLinks = [
   { href: '#plans', label: 'Planes' },
-  { href: '#providers', label: 'Proveedores' },
+  { href: '#providers', label: 'Prestadores' },
   { href: '#faq', label: 'Preguntas Frecuentes' },
 ];
 
@@ -75,7 +75,7 @@ export default function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push('/provider-dashboard')}>
                   <Briefcase className="mr-2 h-4 w-4" />
-                  <span>Portal Proveedor</span>
+                  <span>Portal Prestador</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push('/admin')}>
                   <Shield className="mr-2 h-4 w-4" />

@@ -8,38 +8,38 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const userGrowthData = [
-  { month: 'Ene', users: 150 },
-  { month: 'Feb', users: 280 },
-  { month: 'Mar', users: 400 },
-  { month: 'Abr', users: 650 },
-  { month: 'May', users: 890 },
-  { month: 'Jun', users: 1234 },
+    { month: 'Ene', users: 150 },
+    { month: 'Feb', users: 280 },
+    { month: 'Mar', users: 400 },
+    { month: 'Abr', users: 650 },
+    { month: 'May', users: 890 },
+    { month: 'Jun', users: 1234 },
 ];
 
 const membershipSalesData = [
-  { month: 'Ene', sales: 20 },
-  { month: 'Feb', sales: 45 },
-  { month: 'Mar', sales: 60 },
-  { month: 'Abr', sales: 55 },
-  { month: 'May', sales: 75 },
-  { month: 'Jun', sales: 90 },
+    { month: 'Ene', sales: 20 },
+    { month: 'Feb', sales: 45 },
+    { month: 'Mar', sales: 60 },
+    { month: 'Abr', sales: 55 },
+    { month: 'May', sales: 75 },
+    { month: 'Jun', sales: 90 },
 ];
 
 const chartConfig = {
-  users: {
-    label: "Usuarios",
-    color: "hsl(var(--primary))",
-  },
-  sales: {
-    label: "Ventas",
-    color: "hsl(var(--accent))",
-  }
+    users: {
+        label: "Usuarios",
+        color: "hsl(var(--primary))",
+    },
+    sales: {
+        label: "Ventas",
+        color: "hsl(var(--accent))",
+    }
 };
 
 const recentActivities = [
     {
         icon: UserPlus,
-        text: "Nuevo proveedor 'Clínica Dental Sonríe' ha solicitado unirse.",
+        text: "Nuevo prestador 'Clínica Dental Sonríe' ha solicitado unirse.",
         time: "hace 5 minutos",
     },
     {
@@ -49,7 +49,7 @@ const recentActivities = [
     },
     {
         icon: UserPlus,
-        text: "Nuevo proveedor 'vilapaulo' ha solicitado unirse.",
+        text: "Nuevo prestador 'vilapaulo' ha solicitado unirse.",
         time: "hace 3 horas",
     },
 ];
@@ -81,7 +81,7 @@ export default function AdminDashboardPage() {
                         </Card>
                         <Card>
                             <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                <CardTitle className="text-sm font-medium">Proveedores Afiliados</CardTitle>
+                                <CardTitle className="text-sm font-medium">Prestadores Afiliados</CardTitle>
                                 <Stethoscope className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
                             <CardContent>
@@ -130,14 +130,14 @@ export default function AdminDashboardPage() {
                         </CardHeader>
                         <CardContent>
                             <ChartContainer config={chartConfig} className="h-[250px] w-full">
-                               <ResponsiveContainer>
+                                <ResponsiveContainer>
                                     <BarChart data={membershipSalesData}>
                                         <CartesianGrid vertical={false} />
                                         <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
                                         <YAxis />
-                                        <Tooltip 
-                                            cursor={false} 
-                                            content={<ChartTooltipContent hideLabel />} 
+                                        <Tooltip
+                                            cursor={false}
+                                            content={<ChartTooltipContent hideLabel />}
                                         />
                                         <Bar dataKey="sales" fill="var(--color-sales)" radius={8} />
                                     </BarChart>
@@ -152,7 +152,7 @@ export default function AdminDashboardPage() {
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Bell className="h-5 w-5"/>
+                                <Bell className="h-5 w-5" />
                                 Actividad Reciente
                             </CardTitle>
                         </CardHeader>

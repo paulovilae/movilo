@@ -70,20 +70,20 @@ export default function AdminProvidersPage() {
             <div className="p-4 sm:p-6 md:p-8">
                 <div className="flex justify-between items-center mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold font-headline">Gestionar Proveedores</h1>
-                        <p className="text-muted-foreground">Agrega, edita o elimina proveedores de la red.</p>
+                        <h1 className="text-3xl font-bold font-headline">Gestionar Prestadores</h1>
+                        <p className="text-muted-foreground">Agrega, edita o elimina prestadores de la red.</p>
                     </div>
                     <Button>
                         <PlusCircle className="mr-2 h-4 w-4" />
-                        Agregar Proveedor Manualmente
+                        Agregar Prestador Manualmente
                     </Button>
                 </div>
-                
+
                 <Card>
                     <CardHeader>
-                        <CardTitle>Solicitudes de Proveedores</CardTitle>
+                        <CardTitle>Solicitudes de Prestadores</CardTitle>
                         <CardDescription>
-                            Proveedores que han solicitado unirse a la red de Movilo.club.
+                            Prestadores que han solicitado unirse a la red de Movilo.club.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -107,7 +107,7 @@ export default function AdminProvidersPage() {
                                         <TableCell>{provider.contact}</TableCell>
                                         <TableCell>{provider.date}</TableCell>
                                         <TableCell>
-                                            <Badge variant={provider.status === 'Aprobado' ? 'default' : 'secondary'} 
+                                            <Badge variant={provider.status === 'Aprobado' ? 'default' : 'secondary'}
                                                 className={provider.status === 'Aprobado' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
                                                 {provider.status}
                                             </Badge>
@@ -148,23 +148,23 @@ export default function AdminProvidersPage() {
                     </CardContent>
                 </Card>
             </div>
-            
+
             {selectedProvider && (
-                 <DialogContent className="sm:max-w-2xl">
+                <DialogContent className="sm:max-w-2xl">
                     <DialogHeader>
                         <DialogTitle>Detalles de la Solicitud</DialogTitle>
                         <DialogDescription>
-                            Revisa la información y los documentos del proveedor antes de tomar una acción.
+                            Revisa la información y los documentos del prestador antes de tomar una acción.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
                         <div className="space-y-4">
-                            <h4 className="font-semibold">Información del Proveedor</h4>
+                            <h4 className="font-semibold">Información del Prestador</h4>
                             <div className="text-sm">
                                 <p className="text-muted-foreground">Nombre / Empresa</p>
                                 <p className="font-medium">{selectedProvider.name}</p>
                             </div>
-                             <div className="text-sm">
+                            <div className="text-sm">
                                 <p className="text-muted-foreground">NIT / Cédula</p>
                                 <p className="font-medium">{selectedProvider.nit}</p>
                             </div>
@@ -172,16 +172,16 @@ export default function AdminProvidersPage() {
                                 <p className="text-muted-foreground">Nombre de Contacto</p>
                                 <p className="font-medium">{selectedProvider.contact}</p>
                             </div>
-                             <div className="text-sm">
+                            <div className="text-sm">
                                 <p className="text-muted-foreground">Email</p>
                                 <p className="font-medium">{selectedProvider.email}</p>
                             </div>
-                             <div className="text-sm">
+                            <div className="text-sm">
                                 <p className="text-muted-foreground">Teléfono</p>
                                 <p className="font-medium">{selectedProvider.phone}</p>
                             </div>
                         </div>
-                         <div className="space-y-4">
+                        <div className="space-y-4">
                             <h4 className="font-semibold">Documentos Adjuntos</h4>
                             {selectedProvider.documents.length > 0 ? (
                                 <ul className="space-y-2">
@@ -202,7 +202,7 @@ export default function AdminProvidersPage() {
                             )}
                         </div>
                     </div>
-                 </DialogContent>
+                </DialogContent>
             )}
         </Dialog>
     );

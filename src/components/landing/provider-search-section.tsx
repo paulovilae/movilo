@@ -44,7 +44,7 @@ const ProviderList = ({ providers, onProviderSelect, selectedProvider }: { provi
                         className="object-contain w-full h-full opacity-80"
                     />
                 </div>
-                <p className="text-muted-foreground">No encontramos proveedores con esos criterios.</p>
+                <p className="text-muted-foreground">No encontramos prestadores con esos criterios.</p>
             </div>
         );
     }
@@ -143,7 +143,7 @@ export function ProviderSearchSection() {
         <section id="providers" className="w-full py-16 md:py-24 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="mx-auto max-w-3xl text-center space-y-4">
-                    <h2 className="text-3xl md:text-4xl font-headline font-bold">Encuentra tu Proveedor Ideal</h2>
+                    <h2 className="text-3xl md:text-4xl font-headline font-bold">Encuentra tu Prestador Ideal</h2>
                     <p className="text-muted-foreground md:text-lg">
                         Busca en nuestra amplia red de profesionales y centros de salud en Cali.
                     </p>

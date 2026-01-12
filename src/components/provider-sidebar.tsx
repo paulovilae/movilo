@@ -19,26 +19,24 @@ import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useUser, useAuth } from '@/firebase';
 import {
-    LayoutDashboard,
-    User,
-    ClipboardList,
-    Wallet,
-    Settings,
-    LogOut,
-    UserCog,
-    Shield,
+  LayoutDashboard,
+  User,
+  ClipboardList,
+  Wallet,
+  Settings,
+  LogOut,
+  UserCog,
+  Shield,
 } from 'lucide-react';
 
 const providerLinks = [
-    { href: '/provider-dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/provider-dashboard/profile', label: 'Mi Perfil', icon: User },
-    { href: '/provider-dashboard/services', label: 'Servicios', icon: ClipboardList },
-    { href: '/provider-dashboard/billing', label: 'Facturación', icon: Wallet },
+  { href: '/provider-dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/provider-dashboard/profile', label: 'Mi Perfil', icon: User },
+  { href: '/provider-dashboard/services', label: 'Servicios', icon: ClipboardList },
+  { href: '/provider-dashboard/billing', label: 'Facturación', icon: Wallet },
 ];
 
-const settingsLinks = [
-    { href: '/provider-dashboard/settings', label: 'Configuración', icon: Settings },
-];
+
 
 export function ProviderSidebar() {
   const pathname = usePathname();
@@ -59,7 +57,7 @@ export function ProviderSidebar() {
       <SidebarContent>
         <SidebarMenu>
           <SidebarGroup>
-            <SidebarGroupLabel>Proveedor</SidebarGroupLabel>
+            <SidebarGroupLabel>Prestador</SidebarGroupLabel>
             {providerLinks.map(link => (
               <SidebarMenuItem key={link.href}>
                 <SidebarMenuButton asChild isActive={pathname === link.href}>
@@ -72,33 +70,24 @@ export function ProviderSidebar() {
             ))}
           </SidebarGroup>
           <SidebarSeparator />
-           <SidebarGroup>
-            <SidebarGroupLabel>Cuenta</SidebarGroupLabel>
-            {settingsLinks.map(link => (
-              <SidebarMenuItem key={link.href}>
-                <SidebarMenuButton asChild isActive={pathname === link.href}>
-                  <Link href={link.href}>
-                    <link.icon />
-                    <span>{link.label}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-             <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/dashboard">
-                        <UserCog />
-                        <span>Portal Socio</span>
-                    </Link>
-                </SidebarMenuButton>
+          <SidebarGroup>
+            <SidebarGroupLabel>Portales</SidebarGroupLabel>
+
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/dashboard">
+                  <UserCog />
+                  <span>Portal Socio</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/admin">
-                        <Shield />
-                        <span>Panel Admin</span>
-                    </Link>
-                </SidebarMenuButton>
+              <SidebarMenuButton asChild>
+                <Link href="/admin">
+                  <Shield />
+                  <span>Panel Admin</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarGroup>
         </SidebarMenu>
@@ -106,20 +95,20 @@ export function ProviderSidebar() {
       <SidebarFooter className='gap-4'>
         <SidebarSeparator />
         {user && (
-            <div className='flex items-center gap-2 p-2'>
-                <Avatar className="h-10 w-10">
-                    <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
-                    <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div className='flex flex-col overflow-hidden'>
-                    <span className='text-sm font-semibold truncate'>{user.displayName}</span>
-                    <span className='text-xs text-muted-foreground truncate'>{user.email}</span>
-                </div>
+          <Link href="/provider-dashboard/settings" className='flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors'>
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
+              <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className='flex flex-col overflow-hidden'>
+              <span className='text-sm font-semibold truncate'>{user.displayName}</span>
+              <span className='text-xs text-muted-foreground truncate'>{user.email}</span>
             </div>
+          </Link>
         )}
-         <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleSignOut}>
-            <LogOut />
-            <span>Cerrar Sesión</span>
+        <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleSignOut}>
+          <LogOut />
+          <span>Cerrar Sesión</span>
         </Button>
       </SidebarFooter>
     </Sidebar>

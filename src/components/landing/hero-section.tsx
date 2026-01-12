@@ -27,7 +27,7 @@ export function HeroSection() {
               <Link href="#plans">Ver Planes</Link>
             </Button>
             <Button size="lg" variant="secondary" asChild className="shadow-lg">
-              <Link href="#providers">Buscar Proveedor</Link>
+              <Link href="#providers">Buscar Prestador</Link>
             </Button>
           </div>
         </div>

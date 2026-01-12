@@ -5,13 +5,13 @@ export default function ProviderProfilePage() {
     return (
         <div className="p-4 sm:p-6 md:p-8">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold font-headline">Mi Perfil de Proveedor</h1>
+                <h1 className="text-3xl font-bold font-headline">Mi Perfil de Prestador</h1>
                 <p className="text-muted-foreground">Mantén tu información pública actualizada.</p>
             </div>
-            
+
             <Card>
                 <CardHeader>
-                    <CardTitle>Información del Proveedor</CardTitle>
+                    <CardTitle>Información del Prestador</CardTitle>
                     <CardDescription>
                         Aquí podrás editar la información que ven los socios de Movilo.club.
                     </CardDescription>

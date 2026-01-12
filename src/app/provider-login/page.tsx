@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -25,8 +25,8 @@ import { Separator } from "@/components/ui/separator";
 import { initiateGoogleSignIn } from "@/firebase/auth";
 
 const loginSchema = z.object({
-  email: z.string().email("Por favor, introduce un email válido."),
-  password: z.string().min(1, "La contraseña es requerida."),
+    email: z.string().email("Por favor, introduce un email válido."),
+    password: z.string().min(1, "La contraseña es requerida."),
 });
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -80,93 +80,93 @@ export default function ProviderLoginPage() {
     };
 
     if (isUserLoading || user) {
-      return (
-        <div className="flex min-h-screen items-center justify-center">
-          Cargando...
-        </div>
-      );
-    }
- 
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
-        <div className="w-full max-w-md space-y-4">
-            <div className="flex justify-center">
-                <Link href="/">
-                    <Logo />
-                </Link>
+        return (
+            <div className="flex min-h-screen items-center justify-center">
+                Cargando...
             </div>
-            <Card>
-                <CardHeader className="text-center">
-                    <CardTitle className="text-2xl">Portal de Proveedores</CardTitle>
-                    <CardDescription>
-                        Ingresa a tu cuenta para gestionar tu perfil y servicios.
-                    </CardDescription>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
-                    <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
-                        <GoogleIcon className="mr-2" />
-                        Ingresar con Google
-                    </Button>
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t" />
+        );
+    }
+
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
+            <div className="w-full max-w-md space-y-4">
+                <div className="flex justify-center">
+                    <Link href="/">
+                        <Logo />
+                    </Link>
+                </div>
+                <Card>
+                    <CardHeader className="text-center">
+                        <CardTitle className="text-2xl">Portal de Prestadores</CardTitle>
+                        <CardDescription>
+                            Ingresa a tu cuenta para gestionar tu perfil y servicios.
+                        </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="space-y-4">
+                        <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
+                            <GoogleIcon className="mr-2" />
+                            Ingresar con Google
+                        </Button>
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <span className="w-full border-t" />
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-background px-2 text-muted-foreground">
+                                    O continuar con email
+                                </span>
+                            </div>
                         </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-background px-2 text-muted-foreground">
-                            O continuar con email
-                            </span>
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Email</FormLabel>
+                                            <FormControl>
+                                                <Input type="email" placeholder="tu@email.com" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="password"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <div className="flex items-center justify-between">
+                                                <FormLabel>Contraseña</FormLabel>
+                                                <Link href="#" className="text-sm underline">
+                                                    ¿Olvidaste tu contraseña?
+                                                </Link>
+                                            </div>
+                                            <FormControl>
+                                                <Input type="password" placeholder="••••••••" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <Button type="submit" className="w-full">
+                                    Ingresar
+                                </Button>
+                            </form>
+                        </Form>
+                    </CardContent>
+                    <CardFooter className="flex flex-col gap-4">
+                        <div className="text-center text-sm text-muted-foreground">
+                            ¿Aún no eres prestador?{" "}
+                            <Link href="/provider-signup" className="underline font-medium text-primary">
+                                Regístrate aquí
+                            </Link>
                         </div>
-                    </div>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                            <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input type="email" placeholder="tu@email.com" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <div className="flex items-center justify-between">
-                                            <FormLabel>Contraseña</FormLabel>
-                                            <Link href="#" className="text-sm underline">
-                                                ¿Olvidaste tu contraseña?
-                                            </Link>
-                                        </div>
-                                        <FormControl>
-                                            <Input type="password" placeholder="••••••••" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                             <Button type="submit" className="w-full">
-                                Ingresar
-                            </Button>
-                        </form>
-                    </Form>
-                </CardContent>
-                <CardFooter className="flex flex-col gap-4">
-                    <div className="text-center text-sm text-muted-foreground">
-                        ¿Aún no eres proveedor?{" "}
-                        <Link href="/provider-signup" className="underline font-medium text-primary">
-                            Regístrate aquí
-                        </Link>
-                    </div>
-                </CardFooter>
-            </Card>
+                    </CardFooter>
+                </Card>
+            </div>
         </div>
-    </div>
-  )
+    )
 }

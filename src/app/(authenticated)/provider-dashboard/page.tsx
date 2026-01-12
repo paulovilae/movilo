@@ -10,19 +10,19 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { Users, ClipboardList, Wallet } from "lucide-react";
 
 const memberVisitsData = [
-  { month: 'Ene', visits: 12 },
-  { month: 'Feb', visits: 19 },
-  { month: 'Mar', visits: 25 },
-  { month: 'Abr', visits: 32 },
-  { month: 'May', visits: 28 },
-  { month: 'Jun', visits: 45 },
+    { month: 'Ene', visits: 12 },
+    { month: 'Feb', visits: 19 },
+    { month: 'Mar', visits: 25 },
+    { month: 'Abr', visits: 32 },
+    { month: 'May', visits: 28 },
+    { month: 'Jun', visits: 45 },
 ];
 
 const chartConfig = {
-  visits: {
-    label: "Visitas",
-    color: "hsl(var(--primary))",
-  },
+    visits: {
+        label: "Visitas",
+        color: "hsl(var(--primary))",
+    },
 };
 
 
@@ -43,7 +43,7 @@ export default function ProviderDashboardPage() {
     return (
         <div className="p-4 sm:p-6 md:p-8 space-y-8">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold font-headline">Panel de Proveedor</h1>
+                <h1 className="text-3xl font-bold font-headline">Panel de Prestador</h1>
                 <p className="text-muted-foreground">Hola {user.displayName || user.email}, bienvenido a tu panel.</p>
             </div>
 

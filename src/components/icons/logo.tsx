@@ -10,12 +10,12 @@ type LogoProps = {
 export function Logo({ className, iconClassName }: LogoProps) {
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      <HeartPulse className={cn('h-6 w-6 text-primary', iconClassName)} />
-      <span className="font-semibold text-xl text-foreground">
-        Movilo.club
-      </span>
+      <img
+        src="/Movilo/Logotipo/Imagotipo 1.png"
+        alt="Movilo Club"
+        className={cn('h-8 w-auto', iconClassName)}
+      />
     </div>
   );
 }
 
-    

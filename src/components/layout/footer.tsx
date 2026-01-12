@@ -70,16 +70,16 @@ export default function Footer() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="font-semibold">Para Proveedores</h4>
+          <h4 className="font-semibold">Para Prestadores</h4>
           <ul className="space-y-2">
             <li>
               <Link href="/provider-signup" className="text-sm text-muted-foreground hover:text-primary">
-                Inscríbete como Proveedor
+                Inscríbete como Prestador
               </Link>
             </li>
             <li>
               <Link href="/provider-login" className="text-sm text-muted-foreground hover:text-primary">
-                Portal de Proveedores
+                Portal de Prestadores
               </Link>
             </li>
           </ul>

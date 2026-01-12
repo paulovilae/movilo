@@ -18,7 +18,7 @@ export default function OnboardingPage() {
                         <CardHeader>
                             <CardTitle className="text-3xl">Formulario de Pre-Inscripción</CardTitle>
                             <CardDescription>
-                                Completa la siguiente información para iniciar tu proceso como proveedor en Movilo.club. Un asesor te contactará para finalizar el proceso.
+                                Completa la siguiente información para iniciar tu proceso como prestador en Movilo.club. Un asesor te contactará para finalizar el proceso.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
@@ -56,13 +56,13 @@ export default function OnboardingPage() {
                                         <Label htmlFor="rut" className="text-sm font-normal">RUT</Label>
                                         <Input id="rut" type="file" />
                                     </div>
-                                     <div className="space-y-2">
+                                    <div className="space-y-2">
                                         <Label htmlFor="certificados" className="text-sm font-normal">Otros Certificados</Label>
                                         <Input id="certificados" type="file" multiple />
                                     </div>
                                 </div>
                             </div>
-                             <div className="space-y-2">
+                            <div className="space-y-2">
                                 <Label htmlFor="comments">Comentarios Adicionales</Label>
                                 <Textarea id="comments" placeholder="Si tienes alguna duda o comentario, déjalo aquí." />
                             </div>

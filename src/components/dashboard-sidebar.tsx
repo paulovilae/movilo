@@ -19,30 +19,28 @@ import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useUser, useAuth } from '@/firebase';
 import {
-    LayoutDashboard,
-    HeartHandshake,
-    Search,
-    Calendar,
-    CreditCard,
-    Settings,
-    LogOut,
-    History,
-    Briefcase,
-    Shield,
+  LayoutDashboard,
+  HeartHandshake,
+  Search,
+  Calendar,
+  CreditCard,
+  Settings,
+  LogOut,
+  History,
+  Briefcase,
+  Shield,
 } from 'lucide-react';
 
 const clientLinks = [
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/dashboard/benefits', label: 'Mis Beneficios', icon: HeartHandshake },
-    { href: '/dashboard/search', label: 'Buscar Servicios', icon: Search },
-    { href: '/dashboard/appointments', label: 'Citas', icon: Calendar },
-    { href: '/dashboard/digital-card', label: 'Mi Carné Digital', icon: CreditCard },
-    { href: '/dashboard/history', label: 'Mi Historial', icon: History },
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/benefits', label: 'Mis Beneficios', icon: HeartHandshake },
+  { href: '/dashboard/search', label: 'Buscar Servicios', icon: Search },
+  { href: '/dashboard/appointments', label: 'Citas', icon: Calendar },
+  { href: '/dashboard/digital-card', label: 'Mi Carné Digital', icon: CreditCard },
+  { href: '/dashboard/history', label: 'Mi Historial', icon: History },
 ];
 
-const settingsLinks = [
-    { href: '/dashboard/settings', label: 'Configuración', icon: Settings },
-];
+
 
 export function DashboardSidebar() {
   const pathname = usePathname();
@@ -76,33 +74,23 @@ export function DashboardSidebar() {
             ))}
           </SidebarGroup>
           <SidebarSeparator />
-           <SidebarGroup>
-            <SidebarGroupLabel>Cuenta</SidebarGroupLabel>
-            {settingsLinks.map(link => (
-              <SidebarMenuItem key={link.href}>
-                <SidebarMenuButton asChild isActive={pathname === link.href}>
-                  <Link href={link.href}>
-                    <link.icon />
-                    <span>{link.label}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+          <SidebarGroup>
+            <SidebarGroupLabel>Portales</SidebarGroupLabel>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/provider-dashboard">
-                        <Briefcase />
-                        <span>Portal Proveedor</span>
-                    </Link>
-                </SidebarMenuButton>
+              <SidebarMenuButton asChild>
+                <Link href="/provider-dashboard">
+                  <Briefcase />
+                  <span>Portal Prestador</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/admin">
-                        <Shield />
-                        <span>Panel Admin</span>
-                    </Link>
-                </SidebarMenuButton>
+              <SidebarMenuButton asChild>
+                <Link href="/admin">
+                  <Shield />
+                  <span>Panel Admin</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarGroup>
         </SidebarMenu>
@@ -110,20 +98,20 @@ export function DashboardSidebar() {
       <SidebarFooter className='gap-4'>
         <SidebarSeparator />
         {user && (
-            <div className='flex items-center gap-2 p-2'>
-                <Avatar className="h-10 w-10">
-                    <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
-                    <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div className='flex flex-col overflow-hidden'>
-                    <span className='text-sm font-semibold truncate'>{user.displayName}</span>
-                    <span className='text-xs text-muted-foreground truncate'>{user.email}</span>
-                </div>
+          <Link href="/dashboard/settings" className='flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors'>
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
+              <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className='flex flex-col overflow-hidden'>
+              <span className='text-sm font-semibold truncate'>{user.displayName}</span>
+              <span className='text-xs text-muted-foreground truncate'>{user.email}</span>
             </div>
+          </Link>
         )}
-         <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleSignOut}>
-            <LogOut />
-            <span>Cerrar Sesión</span>
+        <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleSignOut}>
+          <LogOut />
+          <span>Cerrar Sesión</span>
         </Button>
       </SidebarFooter>
     </Sidebar>

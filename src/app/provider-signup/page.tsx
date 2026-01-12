@@ -82,13 +82,13 @@ export default function ProviderSignupPage() {
             <main className="flex-1 bg-background">
                 <section className="py-16 md:py-24 text-center bg-secondary/50">
                     <div className="container px-4 md:px-6">
-                        <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter">Únete a Nuestra Red de Proveedores</h1>
+                        <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter">Únete a Nuestra Red de Prestadores</h1>
                         <p className="max-w-3xl mx-auto mt-4 text-lg md:text-xl text-muted-foreground">
                             Haz crecer tu negocio y llega a miles de nuevos socios formando parte del club de salud más grande de Cali.
                         </p>
                     </div>
                 </section>
-                
+
                 <section className="py-16 md:py-24">
                     <div className="container px-4 md:px-6">
                         <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -108,12 +108,12 @@ export default function ProviderSignupPage() {
                                     </ul>
                                 </div>
                                 <div className="grid grid-cols-1 gap-6">
-                                   <Card>
-                                       <CardHeader className="flex flex-row items-center gap-4">
-                                            <Building className="w-8 h-8 text-primary"/>
+                                    <Card>
+                                        <CardHeader className="flex flex-row items-center gap-4">
+                                            <Building className="w-8 h-8 text-primary" />
                                             <CardTitle>Requisitos Generales</CardTitle>
-                                       </CardHeader>
-                                       <CardContent>
+                                        </CardHeader>
+                                        <CardContent>
                                             <ul className="space-y-2 text-sm text-muted-foreground">
                                                 {requirements.map((req, index) => (
                                                     <li key={index} className="flex items-start">
@@ -122,14 +122,14 @@ export default function ProviderSignupPage() {
                                                     </li>
                                                 ))}
                                             </ul>
-                                       </CardContent>
-                                   </Card>
-                                   <Card>
-                                       <CardHeader className="flex flex-row items-center gap-4">
-                                            <FileText className="w-8 h-8 text-primary"/>
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader className="flex flex-row items-center gap-4">
+                                            <FileText className="w-8 h-8 text-primary" />
                                             <CardTitle>Documentación Requerida</CardTitle>
-                                       </CardHeader>
-                                       <CardContent>
+                                        </CardHeader>
+                                        <CardContent>
                                             <ul className="space-y-2 text-sm text-muted-foreground">
                                                 {documents.map((doc, index) => (
                                                     <li key={index} className="flex items-start">
@@ -138,14 +138,14 @@ export default function ProviderSignupPage() {
                                                     </li>
                                                 ))}
                                             </ul>
-                                       </CardContent>
-                                   </Card>
+                                        </CardContent>
+                                    </Card>
                                 </div>
                             </div>
-                            
+
                             <Card className="sticky top-24">
                                 <CardHeader>
-                                    <CardTitle className="text-2xl">Crea tu Cuenta de Proveedor</CardTitle>
+                                    <CardTitle className="text-2xl">Crea tu Cuenta de Prestador</CardTitle>
                                     <CardDescription>Completa este formulario para iniciar. Luego podrás subir tus documentos.</CardDescription>
                                 </CardHeader>
                                 <Form {...form}>
@@ -215,4 +215,3 @@ export default function ProviderSignupPage() {
     )
 }
 
-    

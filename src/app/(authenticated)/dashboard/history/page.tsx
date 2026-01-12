@@ -10,7 +10,7 @@ export default function HistoryPage() {
                 <h1 className="text-3xl font-bold font-headline">Historial de Beneficios</h1>
                 <p className="text-muted-foreground">Revisa los descuentos y beneficios que has utilizado.</p>
             </div>
-            
+
             <Card>
                 <CardHeader>
                     <CardTitle>Mis Beneficios Utilizados</CardTitle>
@@ -22,7 +22,7 @@ export default function HistoryPage() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Proveedor</TableHead>
+                                <TableHead>Prestador</TableHead>
                                 <TableHead>Servicio</TableHead>
                                 <TableHead>Fecha</TableHead>
                                 <TableHead className="text-right">Descuento</TableHead>

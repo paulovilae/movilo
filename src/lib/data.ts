@@ -64,12 +64,12 @@ export const faqs: FaqItem[] = [
   {
     question: '¿Qué es Movilo.club?',
     answer:
-      'Movilo.club es un club de descuentos en salud que te da acceso a una amplia red de proveedores médicos en Cali a precios preferenciales. No es un seguro de salud, sino una membresía que te permite ahorrar en tus gastos médicos.',
+      'Movilo.club es un club de descuentos en salud que te da acceso a una amplia red de prestadores médicos en Cali a precios preferenciales. No es un seguro de salud, sino una membresía que te permite ahorrar en tus gastos médicos.',
   },
   {
     question: '¿Cómo funciona la membresía?',
     answer:
-      'Una vez te afilies, recibirás un carné digital. Simplemente preséntalo en cualquiera de nuestros proveedores afiliados para recibir el descuento acordado en el momento de pagar por el servicio.',
+      'Una vez te afilies, recibirás un carné digital. Simplemente preséntalo en cualquiera de nuestros prestadores afiliados para recibir el descuento acordado en el momento de pagar por el servicio.',
   },
   {
     question: '¿Hay algún período de espera para usar los beneficios?',
@@ -183,41 +183,41 @@ export const providers: Provider[] = [
 ];
 
 export type HistoryItem = {
-    provider: string;
-    service: string;
-    date: string;
-    discount: string;
+  provider: string;
+  service: string;
+  date: string;
+  discount: string;
 };
 
 export const history: HistoryItem[] = [
-    {
-        provider: "Sonrisa Perfecta",
-        service: "Limpieza Dental",
-        date: "2024-05-15",
-        discount: "15%",
-    },
-    {
-        provider: "Dr. Carlos Valdivieso",
-        service: "Consulta Cardiológica",
-        date: "2024-05-10",
-        discount: "10%",
-    },
-    {
-        provider: "Laboratorio Clínico Angel",
-        service: "Examen de Sangre",
-        date: "2024-04-28",
-        discount: "20%",
-    },
-    {
-        provider: "Drogas La Rebaja",
-        service: "Compra de Medicamentos",
-        date: "2024-04-25",
-        discount: "5%",
-    },
-    {
-        provider: "Clínica Dental Sonríe",
-        service: "Ortodoncia - Ajuste",
-        date: "2024-04-12",
-        discount: "10%",
-    }
+  {
+    provider: "Sonrisa Perfecta",
+    service: "Limpieza Dental",
+    date: "2024-05-15",
+    discount: "15%",
+  },
+  {
+    provider: "Dr. Carlos Valdivieso",
+    service: "Consulta Cardiológica",
+    date: "2024-05-10",
+    discount: "10%",
+  },
+  {
+    provider: "Laboratorio Clínico Angel",
+    service: "Examen de Sangre",
+    date: "2024-04-28",
+    discount: "20%",
+  },
+  {
+    provider: "Drogas La Rebaja",
+    service: "Compra de Medicamentos",
+    date: "2024-04-25",
+    discount: "5%",
+  },
+  {
+    provider: "Clínica Dental Sonríe",
+    service: "Ortodoncia - Ajuste",
+    date: "2024-04-12",
+    discount: "10%",
+  }
 ];
