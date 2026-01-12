@@ -42,7 +42,7 @@ export function getSdks(firebaseApp: FirebaseApp) {
   // Connect to emulators in development mode
   // Connect to emulators in development mode or if hostname matches
   if (typeof window !== 'undefined' &&
-    (window.location.hostname === 'localhost' || window.location.hostname === 'test.movilo.club') &&
+    (window.location.hostname === 'localhost') &&
     !emulatorsConnected) {
     console.log('🔧 Connecting to Firebase Emulators...');
     connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
