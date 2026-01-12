@@ -1,6 +1,6 @@
 
 import { AdminSidebar } from '@/components/admin-sidebar';
-import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
+import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
 
 export default function AdminDashboardLayout({
   children,
@@ -9,12 +9,15 @@ export default function AdminDashboardLayout({
 }) {
   return (
     <SidebarProvider>
-        <AdminSidebar />
-        <SidebarInset>
-            <div className="min-h-screen">
-                {children}
-            </div>
-        </SidebarInset>
+      <AdminSidebar />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 lg:hidden">
+          <SidebarTrigger className="-ml-1" />
+        </header>
+        <div className="min-h-screen">
+          {children}
+        </div>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
