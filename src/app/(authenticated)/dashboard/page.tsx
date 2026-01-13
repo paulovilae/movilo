@@ -79,7 +79,7 @@ export default function DashboardPage() {
                     <Card key={item.title}>
                         <CardHeader className="flex flex-row items-center justify-between pb-2">
                             <CardTitle className="text-sm font-medium">{item.title}</CardTitle>
-                            <item.icon className="h-4 w-4 text-muted-foreground" />
+                            <item.icon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{item.description}</div>
