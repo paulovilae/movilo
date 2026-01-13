@@ -55,7 +55,7 @@ export default function Header() {
           ) : user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full" aria-label="Menú de usuario">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
                     <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
@@ -106,13 +106,13 @@ export default function Header() {
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden">
               <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">Abrir menú principal</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="right">
             <SheetHeader className="sr-only">
-              <SheetTitle>Menu</SheetTitle>
-              <SheetDescription>Main navigation menu for the site.</SheetDescription>
+              <SheetTitle>Menú</SheetTitle>
+              <SheetDescription>Menú de navegación principal del sitio.</SheetDescription>
             </SheetHeader>
             <div className="flex flex-col gap-6 p-6">
               <Link href="/" className="flex items-center gap-2">
