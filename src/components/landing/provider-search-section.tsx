@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Search, Hospital, FlaskConical, Stethoscope, Pill, Phone } from 'lucide-react';
 import { providers, Provider, ProviderType } from '@/lib/data';
 import { cn } from '@/lib/utils';
+import { useDebounce } from '@/hooks/use-debounce';
 // Load Map dynamically to avoid SSR issues with Leaflet
 import dynamic from 'next/dynamic';
 
@@ -81,19 +82,21 @@ const ProviderList = ({ providers, onProviderSelect, selectedProvider }: { provi
 export function ProviderSearchSection() {
     const [activeTab, setActiveTab] = useState<ProviderType>('odontologo');
     const [searchTerm, setSearchTerm] = useState('');
+    // Debounce search term to prevent excessive filtering and map re-renders
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
     const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
 
     const filteredProviders = useMemo(() => {
         const providersInTab = providers.filter(p => p.type === activeTab);
-        if (!searchTerm) {
+        if (!debouncedSearchTerm) {
             return providersInTab;
         }
         return providersInTab.filter(p =>
-            p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            p.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            p.address.toLowerCase().includes(searchTerm.toLowerCase())
+            p.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+            p.specialty.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+            p.address.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
         );
-    }, [activeTab, searchTerm]);
+    }, [activeTab, debouncedSearchTerm]);
 
     const mapState = useMemo(() => {
         // Default to Cali
