@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUser } from "@/firebase";
 import { ArrowRight, Gift, HeartPulse, User as UserIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
@@ -62,10 +63,13 @@ export default function DashboardPage() {
         <div className="p-4 sm:p-6 md:p-8 space-y-8">
             <div className="mb-8 flex flex-col md:flex-row items-start md:items-center gap-6">
                 <div className="relative w-24 h-24 md:w-32 md:h-32 flex-shrink-0">
-                    <img
+                    <Image
                         src="/Movilo/Memo/memo-waving.png"
                         alt="Memo Saludando"
-                        className="object-contain w-full h-full"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 96px, 128px"
+                        priority
                     />
                 </div>
                 <div>
