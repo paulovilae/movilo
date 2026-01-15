@@ -17,7 +17,8 @@ import { Logo } from "@/components/icons/logo";
 import { initiateGoogleSignIn } from "@/firebase/auth";
 import { useAuth, useUser } from "@/firebase";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { Loader2 } from "lucide-react";
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px" {...props}>
@@ -33,6 +34,7 @@ function LoginPageContent() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && user) {
@@ -45,16 +47,22 @@ function LoginPageContent() {
     }
   }, [user, isUserLoading, router, searchParams]);
   
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     if (auth) {
-      initiateGoogleSignIn(auth);
+      setIsGoogleLoading(true);
+      try {
+        await initiateGoogleSignIn(auth);
+      } catch (error) {
+        console.error(error);
+        setIsGoogleLoading(false);
+      }
     }
   };
 
   if (isUserLoading || user) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        Cargando...
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -75,9 +83,18 @@ function LoginPageContent() {
                 </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
-                      <GoogleIcon className="mr-2" />
-                      Ingresar con Google
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={handleGoogleSignIn}
+                    disabled={isGoogleLoading}
+                  >
+                      {isGoogleLoading ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <GoogleIcon className="mr-2" />
+                      )}
+                      {isGoogleLoading ? "Ingresando..." : "Ingresar con Google"}
                   </Button>
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
@@ -90,22 +107,24 @@ function LoginPageContent() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="tu@email.com" required />
+                      <Label htmlFor="email" className="text-muted-foreground">Email (Próximamente)</Label>
+                      <Input id="email" type="email" placeholder="tu@email.com" disabled />
                   </div>
                   <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                          <Label htmlFor="password">Contraseña</Label>
+                          <Label htmlFor="password" className="text-muted-foreground">Contraseña</Label>
+                          {/*
                           <Link href="#" className="text-sm underline">
                               ¿Olvidaste tu contraseña?
                           </Link>
+                          */}
                       </div>
-                      <Input id="password" type="password" required />
+                      <Input id="password" type="password" disabled />
                   </div>
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4">
-                    <Button className="w-full" asChild>
-                        <Link href="/dashboard">Ingresar</Link>
+                    <Button className="w-full" disabled variant="secondary">
+                        Ingresar
                     </Button>
                     <div className="text-center text-sm text-muted-foreground">
                         ¿No tienes una cuenta?{" "}
@@ -122,9 +141,8 @@ function LoginPageContent() {
 
 export default function LoginPage() {
     return (
-        <Suspense fallback={<div>Cargando...</div>}>
+        <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
             <LoginPageContent />
         </Suspense>
     );
 }
-
