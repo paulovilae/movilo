@@ -17,7 +17,8 @@ import { Logo } from "@/components/icons/logo";
 import { initiateGoogleSignIn } from "@/firebase/auth";
 import { useAuth, useUser } from "@/firebase";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, Suspense } from "react";
+import { useEffect, Suspense, useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px" {...props}>
@@ -45,9 +46,17 @@ function LoginPageContent() {
     }
   }, [user, isUserLoading, router, searchParams]);
   
-  const handleGoogleSignIn = () => {
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+
+  const handleGoogleSignIn = async () => {
     if (auth) {
-      initiateGoogleSignIn(auth);
+      setIsGoogleLoading(true);
+      try {
+        await initiateGoogleSignIn(auth);
+      } catch (error) {
+        console.error("Google sign in failed", error);
+        setIsGoogleLoading(false);
+      }
     }
   };
 
@@ -75,8 +84,12 @@ function LoginPageContent() {
                 </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
-                      <GoogleIcon className="mr-2" />
+                  <Button variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={isGoogleLoading}>
+                      {isGoogleLoading ? (
+                        <Spinner className="mr-2 h-4 w-4" />
+                      ) : (
+                        <GoogleIcon className="mr-2" />
+                      )}
                       Ingresar con Google
                   </Button>
                   <div className="relative">
