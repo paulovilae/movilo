@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -83,17 +84,21 @@ export function ProviderSearchSection() {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
 
+    // Debounce search term to prevent excessive re-renders of the map and list
+    // This improves performance by waiting for the user to stop typing before filtering
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
     const filteredProviders = useMemo(() => {
         const providersInTab = providers.filter(p => p.type === activeTab);
-        if (!searchTerm) {
+        if (!debouncedSearchTerm) {
             return providersInTab;
         }
         return providersInTab.filter(p =>
-            p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            p.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            p.address.toLowerCase().includes(searchTerm.toLowerCase())
+            p.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+            p.specialty.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+            p.address.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
         );
-    }, [activeTab, searchTerm]);
+    }, [activeTab, debouncedSearchTerm]);
 
     const mapState = useMemo(() => {
         // Default to Cali
