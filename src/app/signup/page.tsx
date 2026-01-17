@@ -16,7 +16,7 @@ import { Logo } from "@/components/icons/logo";
 import { initiateGoogleSignIn } from "@/firebase/auth";
 import { useAuth, useUser } from "@/firebase";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px" {...props}>
@@ -31,6 +31,7 @@ export default function SignupPage() {
   const auth = useAuth();
   const { user, isUserLoading } = useUser();
   const router = useRouter();
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && user) {
@@ -39,7 +40,15 @@ export default function SignupPage() {
   }, [user, isUserLoading, router]);
 
   const handleGoogleSignIn = async () => {
-    await initiateGoogleSignIn(auth);
+    if (auth) {
+      setIsGoogleLoading(true);
+      try {
+        await initiateGoogleSignIn(auth);
+      } catch (error) {
+        console.error("Google sign in error", error);
+        setIsGoogleLoading(false);
+      }
+    }
   };
 
   if (isUserLoading || user) {
@@ -62,7 +71,12 @@ export default function SignupPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={handleGoogleSignIn}
+              isLoading={isGoogleLoading}
+            >
               <GoogleIcon className="mr-2" />
               Registrarse con Google
             </Button>
